@@ -357,3 +357,26 @@ VALUES
 GO
 
 SET IDENTITY_INSERT [dbo].[Showtime] OFF
+
+SET IDENTITY_INSERT [dbo].[Booking] ON
+INSERT INTO [dbo].[Booking] ([BookingID], [CustomerID], [BookingDate], [TotalPrice])  
+VALUES  
+(1, 1, GETDATE(), 30.00),
+(2, 2, GETDATE(), 50.00); 
+SET IDENTITY_INSERT [dbo].[Booking] OFF
+
+SET IDENTITY_INSERT [dbo].[Ticket] ON  
+INSERT INTO Ticket (TicketID, BookingID, ShowtimeID, SeatID, Price)  
+VALUES  
+(1,  
+ 1,  
+ (SELECT ShowtimeID FROM Showtime WHERE StartTime = '2025-02-17 10:00:00' AND ScreenID = 1),  
+ (SELECT SeatID FROM Seat WHERE SeatNumber = 'A1' AND ScreenID = 1),  
+ 10.00),  
+
+(2,  
+2,  
+ (SELECT ShowtimeID FROM Showtime WHERE StartTime = '2025-02-17 12:30:00' AND ScreenID = 2),  
+ (SELECT SeatID FROM Seat WHERE SeatNumber = 'B2' AND ScreenID = 2),  
+ 20.00);  
+SET IDENTITY_INSERT [dbo].[Ticket] OFF  

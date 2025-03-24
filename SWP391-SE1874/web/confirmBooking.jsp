@@ -43,25 +43,25 @@
         </script>
         <style>
             #voucherForm label {
-                font-size: 1.2em; /* Larger font size */
+                font-size: 1.2em;
                 font-weight: bold;
-                color: #333; /* Match the color of other elements */
+                color: #333;
             }
             #voucherForm select {
-                font-size: 0.9em; /* Slightly smaller font size */
-                padding: 8px; /* Slightly smaller padding */
+                font-size: 0.9em;
+                padding: 8px;
             }
             #voucherForm button {
-                font-size: 0.9em; /* Slightly smaller font size */
-                padding: 8px; /* Slightly smaller padding */
-                border: 2px solid #333; /* Add border to the button */
+                font-size: 0.9em;
+                padding: 8px;
+                border: 2px solid #333;
                 font-weight: bold;
-                color: #333; /* Match the color of other elements */
-                transition: background-color 0.3s, color 0.3s; /* Add transition for smooth hover effect */
+                color: #333;
+                transition: background-color 0.3s, color 0.3s;
             }
             #voucherForm button:hover {
-                background-color: #333; /* Change background color on hover */
-                color: #fff; /* Change text color on hover */
+                background-color: #333; 
+                color: #fff;
             }
         </style>
     </head>
@@ -115,7 +115,6 @@
 
                 <p><strong>Discount Amount:</strong> $<span id="discountAmount">0.00</span></p>
                 <p><strong>Total Price:</strong> $<span id="discountedPrice"><%= totalPrice %></span></p>
-
                 <div class="confirm-booking-button-container">
                     <button class="back-button" onclick="window.history.back(); return false;">Back</button>
                     <button type="submit" class="confirm-booking-button">Done</button>
@@ -175,7 +174,16 @@
                 var discountedPrice = totalPrice - discountAmount;
                 document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
                 document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
+
+                // Remove the form submission to stay on the same page
+                // document.getElementById('voucherForm').submit();
             }
+        </script>
+        <script>
+            document.querySelector('.confirm-booking-button').addEventListener('click', function (event) {
+                event.preventDefault();
+                document.getElementById('bookingForm').submit();
+            });
         </script>
 
     </body>
