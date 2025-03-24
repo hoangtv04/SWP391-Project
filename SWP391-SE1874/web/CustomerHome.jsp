@@ -213,7 +213,7 @@
                         <p><strong>Name:</strong> <%= customer != null ? customer.getCustomerName() : "Guest" %></p>
                         <p><strong>Email:</strong> <%= customer != null ? customer.getEmail() : "" %></p>
                         <hr>
-                        <form action="ticketHistory.jsp" method="get">
+                        <form action="purchaseHistory.jsp" method="get">
                             <button class="btn btn-primary btn-block" type="submit">Ticket History</button>
                         </form>
                         <hr>
