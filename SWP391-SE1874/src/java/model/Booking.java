@@ -11,17 +11,25 @@ public class Booking {
     private int customerId;
     private Date bookingDate;
     private double totalPrice;
+    private int screenId;
+    private int seatId;
+    private int showtimeId;
+    private int voucherId;
 
     // Default constructor
     public Booking() {
     }
 
     // Parameterized constructor
-    public Booking(int bookingId, int customerId, Date bookingDate, double totalPrice) {
+    public Booking(int bookingId, int customerId, Date bookingDate, double totalPrice, int screenId, int seatId, int showtimeId, int voucherId) {
         this.bookingId = bookingId;
         this.customerId = customerId;
         this.bookingDate = bookingDate;
         this.totalPrice = totalPrice;
+        this.screenId = screenId;
+        this.seatId = seatId;
+        this.showtimeId = showtimeId;
+        this.voucherId = voucherId;
     }
 
     // Getters and Setters
@@ -55,5 +63,37 @@ public class Booking {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public int getScreenId() {
+        return screenId;
+    }
+
+    public void setScreenId(int screenId) {
+        this.screenId = screenId;
+    }
+
+    public int getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(int seatId) {
+        this.seatId = seatId;
+    }
+
+    public int getShowtimeId() {
+        return showtimeId;
+    }
+
+    public void setShowtimeId(int showtimeId) {
+        this.showtimeId = showtimeId;
+    }
+
+    public int getVoucherId() {
+        return voucherId;
+    }
+
+    public void setVoucherId(int voucherId) {
+        this.voucherId = voucherId;
     }
 }
