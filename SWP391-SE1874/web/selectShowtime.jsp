@@ -91,32 +91,37 @@
             }
 
             function fetchShowtimes() {
-                var cinemaId = document.getElementById('cinema').value;
-                var screenId = document.getElementById('screen').value;
-                var movieId = '<%= movieId %>';
-                if (cinemaId && screenId) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'selectShowtime', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            var showtimeSelect = document.getElementById('showtime');
-                            showtimeSelect.innerHTML = '<option value="">--Select Start Time--</option>';
-                            response.forEach(function (showtime) {
-                                var option = document.createElement('option');
-                                option.value = showtime.showtimeID;
-                                option.setAttribute('data-endtime', showtime.endTime);
-                                option.textContent = showtime.startTime;
-                                showtimeSelect.appendChild(option);
-                            });
-                        }
-                    };
-                    xhr.send('cinemaId=' + cinemaId + '&screenId=' + screenId + '&movieId=' + movieId);
-                } else {
-                    document.getElementById('showtime').innerHTML = '<option value="">--Select Start Time--</option>';
-                }
+    var cinemaId = document.getElementById('cinema').value;
+    var screenId = document.getElementById('screen').value;
+    var movieId = '<%= movieId %>';
+    if (cinemaId && screenId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'selectShowtime', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                var showtimeSelect = document.getElementById('showtime');
+                showtimeSelect.innerHTML = '<option value="">--Select Start Time--</option>';
+                response.forEach(function (showtime) {
+                    var option = document.createElement('option');
+                    option.value = showtime.showtimeID;
+                    option.setAttribute('data-endtime', formatDateTime(showtime.endTime));
+                    option.textContent = formatDateTime(showtime.startTime);
+                    showtimeSelect.appendChild(option);
+                });
             }
+        };
+        xhr.send('cinemaId=' + cinemaId + '&screenId=' + screenId + '&movieId=' + movieId);
+    } else {
+        document.getElementById('showtime').innerHTML = '<option value="">--Select Start Time--</option>';
+    }
+}
+
+function formatDateTime(dateTime) {
+    // Remove seconds and milliseconds from the timestamp
+    return dateTime.replace(/:\d{2}(\.\d+)?$/, '');
+}
         </script>
         
     </head>
@@ -225,35 +230,6 @@
                 document.getElementById('startTime').value = startTime;
                 document.getElementById('endTime').value = endTime;
                 document.getElementById('seat').disabled = false;
-            });
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const showtimeSelect = document.getElementById('showtime');
-                const endtimeInput = document.getElementById('endtime');
-        
-        
-                // Populate the dropdown
-                showtimes.forEach(showtime => {
-                    const option = document.createElement('option');
-                    option.value = showtime.id;
-                    option.textContent = showtime.startTime; // Start time in HH:mm format
-                    option.dataset.endTime = showtime.endTime; // End time in HH:mm format
-                    showtimeSelect.appendChild(option);
-                });
-        
-                // Update the end time when a start time is selected
-                showtimeSelect.addEventListener('change', function () {
-                    const selectedOption = showtimeSelect.options[showtimeSelect.selectedIndex];
-                    if (selectedOption && selectedOption.dataset.endTime) {
-                        endtimeInput.value = selectedOption.dataset.endTime;
-                    } else {
-                        endtimeInput.value = '';
-                    }
-                });
-        
-                // Enable the dropdown
-                showtimeSelect.disabled = false;
             });
         </script>
     </body>

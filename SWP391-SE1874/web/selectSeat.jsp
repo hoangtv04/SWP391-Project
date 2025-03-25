@@ -36,7 +36,7 @@
                 <h2>Movie: <%= movieName %></h2>
                 <p><strong>Cinema:</strong> <%= cinemaName %></p>
                 <p><strong>Screen:</strong> <%= screenName %></p>
-                <p><strong>Showtime:</strong> <%= startTime %> - <%= endTime %></p>
+                <p><strong>Start Time:</strong> <%= startTime %></p>
             </div>
 
             <form action="confirmBooking" method="post">
@@ -170,6 +170,18 @@
             screenName.value = '<%= screenName %>';
             form.appendChild(screenName);
 
+            const startTime = document.createElement('input');
+            startTime.type = 'hidden';
+            startTime.name = 'startTime';
+            startTime.value = '<%= startTime %>';
+            form.appendChild(startTime);
+
+            const endTime = document.createElement('input');
+            endTime.type = 'hidden';
+            endTime.name = 'endTime';
+            endTime.value = '<%= endTime %>';
+            form.appendChild(endTime);
+            
             document.querySelectorAll('.seat input:checked').forEach(function (seat) {
                 const seatId = document.createElement('input');
                 seatId.type = 'hidden';
