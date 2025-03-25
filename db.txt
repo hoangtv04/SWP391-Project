@@ -414,6 +414,11 @@ ALTER TABLE [dbo].[Booking] ADD FOREIGN KEY ([VoucherID]) REFERENCES [dbo].[Vouc
 -- Xóa bảng Booking-voucher
 DROP TABLE [dbo].[Booking_Voucher];
 
-SET IDENTITY_INSERT Booking ON
-INSERT INTO Booking (BookingID, CustomerID, BookingDate, TotalPrice, ScreenID, SeatID, ShowtimeID, VoucherID)  
-VALUES (1, 2, '2025-03-25', 250000, 5, 12, 8, 2);
+SET IDENTITY_INSERT Booking ON;
+
+INSERT INTO Booking (BookingID, CustomerID, BookingDate, TotalPrice, ScreenID, SeatID, ShowtimeID, VoucherID, MovieID)  
+VALUES 
+(1, 1, '2025-03-25 14:30:00', 200.00, 5, 12, 3, 2, 1),
+(2, 2, '2025-03-26 19:00:00', 250.00, 2, 8, 4, 1, 2);
+
+SET IDENTITY_INSERT Booking OFF;

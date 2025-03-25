@@ -1,35 +1,34 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.util.Date;
+import java.sql.Timestamp;
 
 public class Booking {
     private int bookingId;
-    private int customerId;
     private Date bookingDate;
     private double totalPrice;
-    private int screenId;
-    private int seatId;
-    private int showtimeId;
-    private int voucherId;
+    private String screenName;
+    private String seatNumber;
+    private Timestamp startTime;
+    private String voucherCode;
+    private String customerName;
+    private String movieTitle;
 
     // Default constructor
     public Booking() {
     }
 
     // Parameterized constructor
-    public Booking(int bookingId, int customerId, Date bookingDate, double totalPrice, int screenId, int seatId, int showtimeId, int voucherId) {
+    public Booking(int bookingId, Date bookingDate, double totalPrice, String screenName, String seatNumber, Timestamp startTime, String voucherCode, String customerName, String movieTitle) {
         this.bookingId = bookingId;
-        this.customerId = customerId;
         this.bookingDate = bookingDate;
         this.totalPrice = totalPrice;
-        this.screenId = screenId;
-        this.seatId = seatId;
-        this.showtimeId = showtimeId;
-        this.voucherId = voucherId;
+        this.screenName = screenName;
+        this.seatNumber = seatNumber;
+        this.startTime = startTime;
+        this.voucherCode = voucherCode;
+        this.customerName = customerName;
+        this.movieTitle = movieTitle;
     }
 
     // Getters and Setters
@@ -39,14 +38,6 @@ public class Booking {
 
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
     }
 
     public Date getBookingDate() {
@@ -65,35 +56,51 @@ public class Booking {
         this.totalPrice = totalPrice;
     }
 
-    public int getScreenId() {
-        return screenId;
+    public String getScreenName() {
+        return screenName;
     }
 
-    public void setScreenId(int screenId) {
-        this.screenId = screenId;
+    public void setScreenName(String screenName) {
+        this.screenName = screenName;
     }
 
-    public int getSeatId() {
-        return seatId;
+    public String getSeatNumber() {
+        return seatNumber;
     }
 
-    public void setSeatId(int seatId) {
-        this.seatId = seatId;
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
     }
 
-    public int getShowtimeId() {
-        return showtimeId;
+    public Timestamp getStartTime() {
+        return startTime;
     }
 
-    public void setShowtimeId(int showtimeId) {
-        this.showtimeId = showtimeId;
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
-    public int getVoucherId() {
-        return voucherId;
+    public String getVoucherCode() {
+        return voucherCode;
     }
 
-    public void setVoucherId(int voucherId) {
-        this.voucherId = voucherId;
+    public void setVoucherCode(String voucherCode) {
+        this.voucherCode = voucherCode;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
     }
 }

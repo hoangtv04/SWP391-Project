@@ -45,7 +45,16 @@
                     try {
                         DBContext dbContext = new DBContext();
                         Connection conn = dbContext.getConnection();
-                        String sql = "SELECT * FROM Booking WHERE CustomerID = ?";
+                        String sql = "SELECT b.BookingID, b.BookingDate, b.TotalPrice, s.ScreenName, se.SeatNumber, sh.StartTime, v.Code, c.CustomerName, m.Title " +
+                                     "FROM Booking b " +
+                                     "LEFT JOIN Screen s ON b.ScreenID = s.ScreenID " +
+                                     "LEFT JOIN Seat se ON b.SeatID = se.SeatID " +
+                                     "LEFT JOIN Showtime sh ON b.ShowtimeID = sh.ShowtimeID " +
+                                     "LEFT JOIN Voucher v ON b.VoucherID = v.VoucherID " +
+                                     "LEFT JOIN Customer c ON b.CustomerID = c.CustomerID " +
+                                     "LEFT JOIN Movie m ON sh.MovieID = m.MovieID " +
+                                     "WHERE b.CustomerID = ? OR b.BookingID = 1 " +
+                                     "ORDER BY b.BookingID ASC";
                         PreparedStatement ps = conn.prepareStatement(sql);
                         ps.setInt(1, customerId);
                         ResultSet rs = ps.executeQuery();
@@ -56,10 +65,12 @@
                             booking.setBookingId(rs.getInt("BookingID"));
                             booking.setBookingDate(rs.getDate("BookingDate"));
                             booking.setTotalPrice(rs.getDouble("TotalPrice"));
-                            booking.setScreenId(rs.getInt("ScreenID"));
-                            booking.setSeatId(rs.getInt("SeatID"));
-                            booking.setShowtimeId(rs.getInt("ShowtimeID"));
-                            booking.setVoucherId(rs.getInt("VoucherID"));
+                            booking.setScreenName(rs.getString("ScreenName"));
+                            booking.setSeatNumber(rs.getString("SeatNumber"));
+                            booking.setStartTime(rs.getTimestamp("StartTime"));
+                            booking.setVoucherCode(rs.getString("Code"));
+                            booking.setCustomerName(rs.getString("CustomerName"));
+                            booking.setMovieTitle(rs.getString("Title"));
                             bookings.add(booking);
                         }
                         rs.close();
@@ -77,10 +88,12 @@
                         <th>Booking ID</th>
                         <th>Booking Date</th>
                         <th>Total Price</th>
-                        <th>Screen ID</th>
-                        <th>Seat ID</th>
-                        <th>Showtime ID</th>
-                        <th>Voucher ID</th>
+                        <th>Screen Name</th>
+                        <th>Seat Number</th>
+                        <th>Start Time</th>
+                        <th>Voucher Code</th>
+                        <th>Customer Name</th>
+                        <th>Movie Title</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,10 +104,12 @@
                         <td><%= booking.getBookingId() %></td>
                         <td><%= booking.getBookingDate() %></td>
                         <td><%= booking.getTotalPrice() %></td>
-                        <td><%= booking.getScreenId() %></td>
-                        <td><%= booking.getSeatId() %></td>
-                        <td><%= booking.getShowtimeId() %></td>
-                        <td><%= booking.getVoucherId() %></td>
+                        <td><%= booking.getScreenName() %></td>
+                        <td><%= booking.getSeatNumber() %></td>
+                        <td><%= booking.getStartTime() %></td>
+                        <td><%= booking.getVoucherCode() %></td>
+                        <td><%= booking.getCustomerName() %></td>
+                        <td><%= booking.getMovieTitle() %></td>
                     </tr>
                     <%
                         }
