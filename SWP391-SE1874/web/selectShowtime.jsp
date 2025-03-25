@@ -137,8 +137,9 @@
                 <input type="hidden" name="movieName" value="<%= movieTitle %>">
                 <input type="hidden" name="cinemaName" id="cinemaName">
                 <input type="hidden" name="screenName" id="screenName">
-                
-
+                <input type="hidden" name="startTime" id="startTime">
+                <input type="hidden" name="endTime" id="endTime">
+                               
                 <label for="cinema">Cinema:</label>
                 <select id="cinema" name="cinemaId" required>
                     <option value="">--Select Cinema--</option>
@@ -215,6 +216,44 @@
             document.getElementById('screen').addEventListener('change', function () {
                 var selectedScreen = this.options[this.selectedIndex].text;
                 document.getElementById('screenName').value = selectedScreen;
+            });
+
+            document.getElementById('showtime').addEventListener('change', function () {
+                var selectedOption = this.options[this.selectedIndex];
+                var startTime = selectedOption.textContent;
+                var endTime = selectedOption.getAttribute('data-endtime');
+                document.getElementById('startTime').value = startTime;
+                document.getElementById('endTime').value = endTime;
+                document.getElementById('seat').disabled = false;
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const showtimeSelect = document.getElementById('showtime');
+                const endtimeInput = document.getElementById('endtime');
+        
+        
+                // Populate the dropdown
+                showtimes.forEach(showtime => {
+                    const option = document.createElement('option');
+                    option.value = showtime.id;
+                    option.textContent = showtime.startTime; // Start time in HH:mm format
+                    option.dataset.endTime = showtime.endTime; // End time in HH:mm format
+                    showtimeSelect.appendChild(option);
+                });
+        
+                // Update the end time when a start time is selected
+                showtimeSelect.addEventListener('change', function () {
+                    const selectedOption = showtimeSelect.options[showtimeSelect.selectedIndex];
+                    if (selectedOption && selectedOption.dataset.endTime) {
+                        endtimeInput.value = selectedOption.dataset.endTime;
+                    } else {
+                        endtimeInput.value = '';
+                    }
+                });
+        
+                // Enable the dropdown
+                showtimeSelect.disabled = false;
             });
         </script>
     </body>

@@ -8,6 +8,8 @@
     String movieName = (String) request.getAttribute("movieName");
     String cinemaName = (String) request.getAttribute("cinemaName");
     String screenName = (String) request.getAttribute("screenName");
+    String startTime = (String) request.getAttribute("startTime");
+    String endTime = (String) request.getAttribute("endTime");
 %>
 
 <!DOCTYPE html>
@@ -34,6 +36,7 @@
                 <h2>Movie: <%= movieName %></h2>
                 <p><strong>Cinema:</strong> <%= cinemaName %></p>
                 <p><strong>Screen:</strong> <%= screenName %></p>
+                <p><strong>Showtime:</strong> <%= startTime %> - <%= endTime %></p>
             </div>
 
             <form action="confirmBooking" method="post">
