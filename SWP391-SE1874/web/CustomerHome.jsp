@@ -229,9 +229,8 @@
                 <div class="dropdown ml-3">
                     <img src="image customer/customer.jpg" alt="Customer" class="customer-img dropdown-toggle" id="customerDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="customerDropdown" style="width: 250px;">
-                        <h5 class="text-center">Account Info</h5>
-                        <p><strong>Name:</strong> <%= customer != null ? customer.getCustomerName() : "Guest" %></p>
-                        <p><strong>Email:</strong> <%= customer != null ? customer.getEmail() : "" %></p>
+                        <h5 class="text-center">Profile</h5>
+                        <a href="viewProfile.jsp" class="btn btn-primary btn-block">View Profile</a>
                         <hr>
                         <form action="purchaseHistory.jsp" method="get">
                             <button class="btn btn-primary btn-block" type="submit">Ticket History</button>
