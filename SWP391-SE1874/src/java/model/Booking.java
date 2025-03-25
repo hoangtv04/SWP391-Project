@@ -7,53 +7,53 @@ package model;
 import java.util.Date;
 
 public class Booking {
-    private int bookingId;
-    private int customerId;
-    private Date bookingDate;
-    private double totalPrice;
+ private int BookingID;
+    private int CustomerID;
+    private Date BookingDate;
+    private double TotalPrice;
 
-    // Default constructor
+    // Constructor
+    
     public Booking() {
     }
 
-    // Parameterized constructor
-    public Booking(int bookingId, int customerId, Date bookingDate, double totalPrice) {
-        this.bookingId = bookingId;
-        this.customerId = customerId;
-        this.bookingDate = bookingDate;
-        this.totalPrice = totalPrice;
+    public Booking(int bookingID, int customerID, Date bookingDate, double totalPrice) {
+        this.BookingID = bookingID;
+        this.CustomerID = customerID;
+        this.BookingDate = bookingDate;
+        this.TotalPrice = totalPrice;
     }
 
     // Getters and Setters
-    public int getBookingId() {
-        return bookingId;
+    public int getBookingID() {
+        return BookingID;
     }
 
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
+    public void setBookingID(int bookingID) {
+        this.BookingID = bookingID;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public int getCustomerID() {
+        return CustomerID;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomerID(int customerID) {
+        this.CustomerID = customerID;
     }
 
     public Date getBookingDate() {
-        return bookingDate;
+        return BookingDate;
     }
 
     public void setBookingDate(Date bookingDate) {
-        this.bookingDate = bookingDate;
+        this.BookingDate = bookingDate;
     }
 
     public double getTotalPrice() {
-        return totalPrice;
+        return TotalPrice;
     }
 
     public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+        this.TotalPrice = totalPrice;
     }
 }

@@ -21,13 +21,13 @@ public class BookingDAO extends DBContext{
         try (Connection conn = getConnection()) {
             String sql = "INSERT INTO Booking (CustomerID, TotalPrice) VALUES (?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, booking.getCustomerId());
+            stmt.setInt(1, booking.getCustomerID());
             stmt.setDouble(2, booking.getTotalPrice());
             stmt.executeUpdate();
             // Get generated booking ID
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    booking.setBookingId(generatedKeys.getInt(1));
+            booking.setBookingID(generatedKeys.getInt(1));
                 }
             }
         } catch (SQLException e) {
@@ -43,11 +43,10 @@ public class BookingDAO extends DBContext{
             stmt.setInt(1, customerId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Booking booking = new Booking();
-                booking.setBookingId(rs.getInt("BookingID"));
-                booking.setCustomerId(rs.getInt("CustomerID"));
-                booking.setBookingDate(rs.getDate("BookingDate"));
-                booking.setTotalPrice(rs.getDouble("TotalPrice"));
+           Booking booking = new Booking(rs.getInt("BookingID"), 
+                                         rs.getInt("CustomerID"), 
+                                         rs.getDate("BookingDate"), 
+                                         rs.getDouble("TotalPrice"));
                 bookings.add(booking);
             }
         } catch (SQLException e) {
