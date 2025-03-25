@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +17,18 @@ import java.util.List;
  *
  * @author tovie
  */
-public class BookingDAO extends DBContext{
+public class BookingDAO extends DBContext {
     public void saveBooking(Booking booking) throws Exception {
         try (Connection conn = getConnection()) {
-            String sql = "INSERT INTO Booking (CustomerID, TotalPrice) VALUES (?, ?)";
+            String sql = "INSERT INTO Booking (BookingID, BookingDate, TotalPrice, ScreenID, SeatID, ShowtimeID, VoucherID) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, booking.getCustomerID());
-            stmt.setDouble(2, booking.getTotalPrice());
+            stmt.setInt(1, booking.getBookingId());
+            stmt.setDate(2, new java.sql.Date(booking.getBookingDate().getTime()));
+            stmt.setDouble(3, booking.getTotalPrice());
+            stmt.setString(4, booking.getScreenName());
+            stmt.setString(5, booking.getSeatNumber());
+            stmt.setTimestamp(6, booking.getStartTime());
+            stmt.setString(7, booking.getVoucherCode());
             stmt.executeUpdate();
             // Get generated booking ID
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -38,17 +44,29 @@ public class BookingDAO extends DBContext{
     public List<Booking> getBookingsByCustomerId(int customerId) throws Exception {
         List<Booking> bookings = new ArrayList<>();
         try (Connection conn = getConnection()) {
-            String sql = "SELECT BookingID, CustomerID, BookingDate, TotalPrice FROM Booking WHERE CustomerID = ?";
+            String sql = "SELECT b.BookingID, b.BookingDate, b.TotalPrice, s.ScreenName, se.SeatNumber, sh.StartTime, v.Code " +
+                         "FROM Booking b " +
+                         "LEFT JOIN Screen s ON b.ScreenID = s.ScreenID " +
+                         "LEFT JOIN Seat se ON b.SeatID = se.SeatID " +
+                         "LEFT JOIN Showtime sh ON b.ShowtimeID = sh.ShowtimeID " +
+                         "LEFT JOIN Voucher v ON b.VoucherID = v.VoucherID " +
+                         "WHERE b.CustomerID = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, customerId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-           Booking booking = new Booking(rs.getInt("BookingID"), 
-                                         rs.getInt("CustomerID"), 
-                                         rs.getDate("BookingDate"), 
-                                         rs.getDouble("TotalPrice"));
+                Booking booking = new Booking();
+                booking.setBookingId(rs.getInt("BookingID"));
+                booking.setBookingDate(rs.getDate("BookingDate"));
+                booking.setTotalPrice(rs.getDouble("TotalPrice"));
+                booking.setScreenName(rs.getString("ScreenName"));
+                booking.setSeatNumber(rs.getString("SeatNumber"));
+                booking.setStartTime(rs.getTimestamp("StartTime"));
+                booking.setVoucherCode(rs.getString("Code"));
                 bookings.add(booking);
             }
+            rs.close();
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

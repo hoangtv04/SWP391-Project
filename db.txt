@@ -380,3 +380,45 @@ VALUES
  (SELECT SeatID FROM Seat WHERE SeatNumber = 'B2' AND ScreenID = 2),  
  20.00);  
 SET IDENTITY_INSERT [dbo].[Ticket] OFF  
+
+-- Xóa các ràng buộc liên quan đến bảng Ticket
+ALTER TABLE [dbo].[Ticket] DROP CONSTRAINT [FK__Ticket__BookingI__5070F446];
+ALTER TABLE [dbo].[Ticket] DROP CONSTRAINT [FK__Ticket__SeatID__52593CB8];
+ALTER TABLE [dbo].[Ticket] DROP CONSTRAINT [FK__Ticket__Showtime__5165187F];
+
+-- Xóa bảng Ticket
+DROP TABLE [dbo].[Ticket];
+
+-- Thêm cột ScreenID vào bảng Booking
+ALTER TABLE [dbo].[Booking]
+ADD [ScreenID] INT NULL;
+
+-- Thêm cột SeatID vào bảng Booking
+ALTER TABLE [dbo].[Booking]
+ADD [SeatID] INT NULL;
+
+-- Thêm cột ShowtimeID vào bảng Booking
+ALTER TABLE [dbo].[Booking]
+ADD [ShowtimeID] INT NULL;
+
+-- Thêm cột VoucherID vào bảng Booking
+ALTER TABLE [dbo].[Booking]
+ADD [VoucherID] INT NULL;
+
+-- (Tùy chọn) Nếu cần, bạn có thể thêm ràng buộc FOREIGN KEY cho các cột này
+ALTER TABLE [dbo].[Booking] ADD FOREIGN KEY ([ScreenID]) REFERENCES [dbo].[Screen] ([ScreenID]);
+ALTER TABLE [dbo].[Booking] ADD FOREIGN KEY ([SeatID]) REFERENCES [dbo].[Seat] ([SeatID]);
+ALTER TABLE [dbo].[Booking] ADD FOREIGN KEY ([ShowtimeID]) REFERENCES [dbo].[Showtime] ([ShowtimeID]);
+ALTER TABLE [dbo].[Booking] ADD FOREIGN KEY ([VoucherID]) REFERENCES [dbo].[Voucher] ([VoucherID]);
+
+-- Xóa bảng Booking-voucher
+DROP TABLE [dbo].[Booking_Voucher];
+
+SET IDENTITY_INSERT Booking ON;
+
+INSERT INTO Booking (BookingID, CustomerID, BookingDate, TotalPrice, ScreenID, SeatID, ShowtimeID, VoucherID, MovieID)  
+VALUES 
+(1, 1, '2025-03-25 14:30:00', 200.00, 5, 12, 3, 2, 1),
+(2, 2, '2025-03-26 19:00:00', 250.00, 2, 8, 4, 1, 2);
+
+SET IDENTITY_INSERT Booking OFF;
