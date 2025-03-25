@@ -33,7 +33,7 @@ public class BookingDAO extends DBContext {
             // Get generated booking ID
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    booking.setBookingId(generatedKeys.getInt(1));
+            booking.setBookingID(generatedKeys.getInt(1));
                 }
             }
         } catch (SQLException e) {
