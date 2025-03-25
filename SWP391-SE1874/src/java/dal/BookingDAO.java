@@ -20,15 +20,15 @@ import java.util.List;
 public class BookingDAO extends DBContext {
     public void saveBooking(Booking booking) throws Exception {
         try (Connection conn = getConnection()) {
-            String sql = "INSERT INTO Booking (BookingID, BookingDate, TotalPrice, ScreenID, SeatID, ShowtimeID, VoucherID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Booking (CustomerID, BookingDate, TotalPrice, ScreenID, SeatID, ShowtimeID, VoucherID) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, booking.getBookingId());
-            stmt.setDate(2, new java.sql.Date(booking.getBookingDate().getTime()));
+            stmt.setInt(1, booking.getCustomerId());
+            stmt.setTimestamp(2, new java.sql.Timestamp(booking.getBookingDate().getTime()));
             stmt.setDouble(3, booking.getTotalPrice());
-            stmt.setString(4, booking.getScreenName());
-            stmt.setString(5, booking.getSeatNumber());
-            stmt.setTimestamp(6, booking.getStartTime());
-            stmt.setString(7, booking.getVoucherCode());
+            stmt.setInt(4, booking.getScreenId());
+            stmt.setInt(5, booking.getSeatId());
+            stmt.setInt(6, booking.getShowtimeId());
+            stmt.setInt(7, booking.getVoucherId());
             stmt.executeUpdate();
             // Get generated booking ID
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -38,6 +38,7 @@ public class BookingDAO extends DBContext {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new Exception("Error saving booking", e);
         }
     }
 

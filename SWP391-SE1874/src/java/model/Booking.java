@@ -12,14 +12,20 @@ public class Booking {
     private Timestamp startTime;
     private String voucherCode;
     private String customerName;
-    private String movieTitle;
+    private String title;
+    private int customerId;
+    private int showtimeId;
+    private int seatId;
+    private int screenId;
+    private int voucherId;
 
     // Default constructor
     public Booking() {
     }
 
     // Parameterized constructor
-    public Booking(int bookingId, Date bookingDate, double totalPrice, String screenName, String seatNumber, Timestamp startTime, String voucherCode, String customerName, String movieTitle) {
+
+    public Booking(int bookingId, Date bookingDate, double totalPrice, String screenName, String seatNumber, Timestamp startTime, String voucherCode, String customerName, String title, int customerId, int showtimeId, int seatId, int screenId, int voucherId) {
         this.bookingId = bookingId;
         this.bookingDate = bookingDate;
         this.totalPrice = totalPrice;
@@ -28,10 +34,14 @@ public class Booking {
         this.startTime = startTime;
         this.voucherCode = voucherCode;
         this.customerName = customerName;
-        this.movieTitle = movieTitle;
+        this.title = title;
+        this.customerId = customerId;
+        this.showtimeId = showtimeId;
+        this.seatId = seatId;
+        this.screenId = screenId;
+        this.voucherId = voucherId;
     }
 
-    // Getters and Setters
     public int getBookingId() {
         return bookingId;
     }
@@ -96,11 +106,51 @@ public class Booking {
         this.customerName = customerName;
     }
 
-    public String getMovieTitle() {
-        return movieTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public int getShowtimeId() {
+        return showtimeId;
+    }
+
+    public void setShowtimeId(int showtimeId) {
+        this.showtimeId = showtimeId;
+    }
+
+    public int getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(int seatId) {
+        this.seatId = seatId;
+    }
+
+    public int getScreenId() {
+        return screenId;
+    }
+
+    public void setScreenId(int screenId) {
+        this.screenId = screenId;
+    }
+
+    public int getVoucherId() {
+        return voucherId;
+    }
+
+    public void setVoucherId(int voucherId) {
+        this.voucherId = voucherId;
     }
 }

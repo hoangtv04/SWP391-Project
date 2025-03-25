@@ -100,7 +100,7 @@
 
                 <form id="voucherForm" action="applyvoucher" method="post" onsubmit="applyVoucher(event)">
                     <label for="voucherCode">Select Voucher:</label>
-                    <select name="voucherCode" id="voucherCode">
+                    <select name="voucherCode" id="voucherCode" onchange="updateDiscountedPrice()">
                         <%
                             for (Voucher voucher : vouchers) {
                         %>
@@ -110,6 +110,15 @@
                         %>
                     </select>
                     <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                    <input type="hidden" name="discountedPrice" id="hiddenDiscountedPrice" value="<%= totalPrice %>">
+                    <input type="hidden" name="discountAmount" id="hiddenDiscountAmount" value="0.00">
+                    <input type="hidden" name="customerId" value="<%= request.getSession().getAttribute("customerId") %>">
+                    <input type="hidden" name="showtimeId" value="<%= request.getSession().getAttribute("showtimeId") %>">
+                    <input type="hidden" name="seatId" value="<%= request.getSession().getAttribute("seatId") %>">
+                    <input type="hidden" name="screenName" value="<%= request.getSession().getAttribute("screenName") %>">
+                    <input type="hidden" name="screenId" value="<%= request.getSession().getAttribute("screenId") %>">
+                    <input type="hidden" name="voucherId" value="<%= request.getSession().getAttribute("voucherId") %>">
+                    <input type="hidden" name="movieId" value="<%= request.getSession().getAttribute("movieId") %>">
                     <button type="submit">Apply Voucher</button>
                 </form>
 
@@ -148,7 +157,7 @@
         <script>
             document.querySelector('.confirm-booking-button').addEventListener('click', function (event) {
                 event.preventDefault();
-                alert('Booking Success');
+                alert('Your booking has been successfully confirmed!');
                 window.location.href = 'movie';
             });
         </script>
@@ -175,8 +184,9 @@
                 document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
                 document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
 
-                // Remove the form submission to stay on the same page
-                // document.getElementById('voucherForm').submit();
+                // Update hidden fields
+                document.getElementById('hiddenDiscountedPrice').value = discountedPrice.toFixed(2);
+                document.getElementById('hiddenDiscountAmount').value = discountAmount.toFixed(2);
             }
         </script>
         <script>
