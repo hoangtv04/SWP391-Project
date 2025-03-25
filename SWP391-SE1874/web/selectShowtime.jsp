@@ -91,32 +91,37 @@
             }
 
             function fetchShowtimes() {
-                var cinemaId = document.getElementById('cinema').value;
-                var screenId = document.getElementById('screen').value;
-                var movieId = '<%= movieId %>';
-                if (cinemaId && screenId) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'selectShowtime', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            var showtimeSelect = document.getElementById('showtime');
-                            showtimeSelect.innerHTML = '<option value="">--Select Start Time--</option>';
-                            response.forEach(function (showtime) {
-                                var option = document.createElement('option');
-                                option.value = showtime.showtimeID;
-                                option.setAttribute('data-endtime', showtime.endTime);
-                                option.textContent = showtime.startTime;
-                                showtimeSelect.appendChild(option);
-                            });
-                        }
-                    };
-                    xhr.send('cinemaId=' + cinemaId + '&screenId=' + screenId + '&movieId=' + movieId);
-                } else {
-                    document.getElementById('showtime').innerHTML = '<option value="">--Select Start Time--</option>';
-                }
+    var cinemaId = document.getElementById('cinema').value;
+    var screenId = document.getElementById('screen').value;
+    var movieId = '<%= movieId %>';
+    if (cinemaId && screenId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'selectShowtime', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                var showtimeSelect = document.getElementById('showtime');
+                showtimeSelect.innerHTML = '<option value="">--Select Start Time--</option>';
+                response.forEach(function (showtime) {
+                    var option = document.createElement('option');
+                    option.value = showtime.showtimeID;
+                    option.setAttribute('data-endtime', formatDateTime(showtime.endTime));
+                    option.textContent = formatDateTime(showtime.startTime);
+                    showtimeSelect.appendChild(option);
+                });
             }
+        };
+        xhr.send('cinemaId=' + cinemaId + '&screenId=' + screenId + '&movieId=' + movieId);
+    } else {
+        document.getElementById('showtime').innerHTML = '<option value="">--Select Start Time--</option>';
+    }
+}
+
+function formatDateTime(dateTime) {
+    // Remove seconds and milliseconds from the timestamp
+    return dateTime.replace(/:\d{2}(\.\d+)?$/, '');
+}
         </script>
         
     </head>
@@ -137,8 +142,9 @@
                 <input type="hidden" name="movieName" value="<%= movieTitle %>">
                 <input type="hidden" name="cinemaName" id="cinemaName">
                 <input type="hidden" name="screenName" id="screenName">
-                
-
+                <input type="hidden" name="startTime" id="startTime">
+                <input type="hidden" name="endTime" id="endTime">
+                               
                 <label for="cinema">Cinema:</label>
                 <select id="cinema" name="cinemaId" required>
                     <option value="">--Select Cinema--</option>
@@ -215,6 +221,15 @@
             document.getElementById('screen').addEventListener('change', function () {
                 var selectedScreen = this.options[this.selectedIndex].text;
                 document.getElementById('screenName').value = selectedScreen;
+            });
+
+            document.getElementById('showtime').addEventListener('change', function () {
+                var selectedOption = this.options[this.selectedIndex];
+                var startTime = selectedOption.textContent;
+                var endTime = selectedOption.getAttribute('data-endtime');
+                document.getElementById('startTime').value = startTime;
+                document.getElementById('endTime').value = endTime;
+                document.getElementById('seat').disabled = false;
             });
         </script>
     </body>

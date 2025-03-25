@@ -55,7 +55,6 @@ nav a:hover {
 
 
 
-
 .container {
     width: 60%;
     margin: 20px auto;
@@ -135,7 +134,6 @@ nav a:hover {
     background-color: bisque; /* Brighter orange for VIP seats */
 }
 
-
 .confirm-booking-button-container {
     display: flex;
     justify-content: flex-end;
@@ -152,10 +150,15 @@ nav a:hover {
     text-align: center;
 }
 
-.selected-seat {
-    background-color: #4CAF50 !important; /* Green color for selected seats */
+.seat input:checked + label {
+    background-color: #4CAF50 !important; /* Giữ màu xanh lá khi được chọn */
     border-color: #4CAF50 !important;
-    color: #fff;
+    color: white !important;
+    width: 50px; /* Tăng chiều rộng của checkbox */
+    height: 50px; /* Tăng chiều cao của checkbox */
+    align-content: center;
+    text-align: center;
+    border-radius: 4px;
 }
 
 .confirm-booking-button:hover {

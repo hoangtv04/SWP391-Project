@@ -30,6 +30,10 @@ public class ConfirmBookingServlet extends HttpServlet {
             String screenName = request.getParameter("screenName");
             String[] seatIds = request.getParameterValues("seatIds");
 
+            String startTime = request.getParameter("startTime");
+            String endTime = request.getParameter("endTime");
+
+
             SeatDAO seatDAO = new SeatDAO();
             List<Seat> selectedSeats = new ArrayList<>();
             if (seatIds != null) {
@@ -40,6 +44,9 @@ public class ConfirmBookingServlet extends HttpServlet {
             request.setAttribute("cinemaName", cinemaName);
             request.setAttribute("screenName", screenName);
             request.setAttribute("selectedSeats", selectedSeats);
+
+            request.setAttribute("startTime", startTime);
+            request.setAttribute("endTime", endTime);
 
             request.getRequestDispatcher("/confirmBooking.jsp").forward(request, response);
         } catch (Exception e) {
