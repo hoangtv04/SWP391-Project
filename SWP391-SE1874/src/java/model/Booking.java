@@ -4,7 +4,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 
 public class Booking {
-    private int bookingId;
+    rivate int bookingId;
     private Date bookingDate;
     private double totalPrice;
     private String screenName;
@@ -14,12 +14,12 @@ public class Booking {
     private String customerName;
     private String movieTitle;
 
-    // Default constructor
+    // Constructor
+    
     public Booking() {
     }
 
-    // Parameterized constructor
-    public Booking(int bookingId, Date bookingDate, double totalPrice, String screenName, String seatNumber, Timestamp startTime, String voucherCode, String customerName, String movieTitle) {
+public Booking(int bookingId, Date bookingDate, double totalPrice, String screenName, String seatNumber, Timestamp startTime, String voucherCode, String customerName, String movieTitle) {
         this.bookingId = bookingId;
         this.bookingDate = bookingDate;
         this.totalPrice = totalPrice;
@@ -32,28 +32,35 @@ public class Booking {
     }
 
     // Getters and Setters
-    public int getBookingId() {
-        return bookingId;
+    public int getBookingID() {
+        return BookingID;
     }
 
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
+    public void setBookingID(int bookingID) {
+        this.BookingID = bookingID;
     }
 
+public int getCustomerID() {
+        return CustomerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.CustomerID = customerID;
+    }
     public Date getBookingDate() {
-        return bookingDate;
+        return BookingDate;
     }
 
     public void setBookingDate(Date bookingDate) {
-        this.bookingDate = bookingDate;
+        this.BookingDate = bookingDate;
     }
 
     public double getTotalPrice() {
-        return totalPrice;
+        return TotalPrice;
     }
 
     public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+        this.TotalPrice = totalPrice;
     }
 
     public String getScreenName() {
