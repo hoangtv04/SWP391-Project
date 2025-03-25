@@ -1,21 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Seat" %>
+<%@ page import="model.Voucher" %>
+<%@ page import="dal.VoucherDAO" %>
 
 <%
-    // Retrieve the selected seats and other attributes from the request
     List<Seat> selectedSeats = (List<Seat>) request.getAttribute("selectedSeats");
     String movieName = (String) request.getAttribute("movieName");
     String cinemaName = (String) request.getAttribute("cinemaName");
     String screenName = (String) request.getAttribute("screenName");
 
-    // Calculate the total price
     double totalPrice = 0;
     if (selectedSeats != null) {
         for (Seat seat : selectedSeats) {
             totalPrice += seat.getPrice();
         }
     }
+
+    VoucherDAO voucherDAO = new VoucherDAO();
+    List<Voucher> vouchers = voucherDAO.getAllVouchers();
 
     // Generate QR code URL (for demonstration purposes, using a placeholder URL)
     String qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Total%20Price:%20" + totalPrice;
@@ -38,6 +41,29 @@
                 }
             });
         </script>
+        <style>
+            #voucherForm label {
+                font-size: 1.2em;
+                font-weight: bold;
+                color: #333;
+            }
+            #voucherForm select {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+            #voucherForm button {
+                font-size: 0.9em;
+                padding: 8px;
+                border: 2px solid #333;
+                font-weight: bold;
+                color: #333;
+                transition: background-color 0.3s, color 0.3s;
+            }
+            #voucherForm button:hover {
+                background-color: #333; 
+                color: #fff;
+            }
+        </style>
     </head>
     <body>
         <header class="header">
@@ -70,8 +96,25 @@
                     }
                 %>
 
-                <p><strong>Total Price:</strong> $<%= totalPrice %></p>
+                <p><strong>Total Price:</strong> $<span id="totalPrice"><%= totalPrice %></span></p>
 
+                <form id="voucherForm" action="applyvoucher" method="post" onsubmit="applyVoucher(event)">
+                    <label for="voucherCode">Select Voucher:</label>
+                    <select name="voucherCode" id="voucherCode">
+                        <%
+                            for (Voucher voucher : vouchers) {
+                        %>
+                        <option value="<%= voucher.getDiscountAmount() %>"><%= voucher.getCode() %> - $<%= voucher.getDiscountAmount() %></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                    <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                    <button type="submit">Apply Voucher</button>
+                </form>
+
+                <p><strong>Discount Amount:</strong> $<span id="discountAmount">0.00</span></p>
+                <p><strong>Total Price:</strong> $<span id="discountedPrice"><%= totalPrice %></span></p>
                 <div class="confirm-booking-button-container">
                     <button class="back-button" onclick="window.history.back(); return false;">Back</button>
                     <button type="submit" class="confirm-booking-button">Done</button>
@@ -114,6 +157,33 @@
             function goBack() {
                 window.history.back();
             }
+        </script>
+        <script>
+            function updateDiscountedPrice() {
+                var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
+                var discountAmount = parseFloat(document.getElementById('voucherCode').value);
+                var discountedPrice = totalPrice - discountAmount;
+                document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
+            }
+        </script>
+        <script>
+            function applyVoucher(event) {
+                event.preventDefault();
+                var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
+                var discountAmount = parseFloat(document.getElementById('voucherCode').value);
+                var discountedPrice = totalPrice - discountAmount;
+                document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
+                document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
+
+                // Remove the form submission to stay on the same page
+                // document.getElementById('voucherForm').submit();
+            }
+        </script>
+        <script>
+            document.querySelector('.confirm-booking-button').addEventListener('click', function (event) {
+                event.preventDefault();
+                document.getElementById('bookingForm').submit();
+            });
         </script>
 
     </body>

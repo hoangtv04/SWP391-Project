@@ -1,9 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package model;
 
 import java.util.Date;
 
 public class Booking {
-    private int BookingID;
+ private int BookingID;
     private int CustomerID;
     private Date BookingDate;
     private double TotalPrice;

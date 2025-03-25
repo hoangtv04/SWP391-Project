@@ -27,7 +27,7 @@ public class BookingDAO extends DBContext{
             // Get generated booking ID
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    booking.setBookingID(generatedKeys.getInt(1));
+            booking.setBookingID(generatedKeys.getInt(1));
                 }
             }
         } catch (SQLException e) {
@@ -43,7 +43,10 @@ public class BookingDAO extends DBContext{
             stmt.setInt(1, customerId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Booking booking = new Booking(rs.getInt("BookingID"), rs.getInt("CustomerID"), rs.getDate("BookingDate"), rs.getDouble("TotalPrice"));
+           Booking booking = new Booking(rs.getInt("BookingID"), 
+                                         rs.getInt("CustomerID"), 
+                                         rs.getDate("BookingDate"), 
+                                         rs.getDouble("TotalPrice"));
                 bookings.add(booking);
             }
         } catch (SQLException e) {
