@@ -15,7 +15,7 @@ public class CustomerDAO extends DBContext {
         try (Connection connection = getConnection(); Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Customer customer = new Customer();
-                customer.setCustomerId(rs.getInt("CustomerID"));
+                customer.setCustomerID(rs.getInt("CustomerID"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setCustomerName(rs.getString("CustomerName"));
                 customer.setPassword(rs.getString("Password"));
@@ -36,7 +36,7 @@ public class CustomerDAO extends DBContext {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Customer customer = new Customer();
-                customer.setCustomerId(rs.getInt("CustomerID"));
+                customer.setCustomerID(rs.getInt("CustomerID"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setCustomerName(rs.getString("CustomerName"));
                 customer.setPassword(rs.getString("Password"));
@@ -60,7 +60,7 @@ public class CustomerDAO extends DBContext {
             if (rs.next()) {
                 // Create and populate the Customer object
                 Customer customer = new Customer();
-                customer.setCustomerId(rs.getInt("CustomerID"));
+                customer.setCustomerID(rs.getInt("CustomerID"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setCustomerName(rs.getString("CustomerName"));
                 customer.setPassword(rs.getString("Password"));
@@ -81,7 +81,7 @@ public class CustomerDAO extends DBContext {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Customer customer = new Customer();
-                customer.setCustomerId(rs.getInt("CustomerID"));
+                customer.setCustomerID(rs.getInt("CustomerID"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setCustomerName(rs.getString("CustomerName"));
                 customer.setPassword(rs.getString("Password"));
@@ -102,7 +102,7 @@ public class CustomerDAO extends DBContext {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Customer customer = new Customer();
-                customer.setCustomerId(rs.getInt("CustomerID"));
+                customer.setCustomerID(rs.getInt("CustomerID"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setCustomerName(rs.getString("CustomerName"));
                 customer.setPassword(rs.getString("Password"));
@@ -140,7 +140,7 @@ public class CustomerDAO extends DBContext {
             stmt.setString(3, customer.getPassword());
             stmt.setString(4, customer.getEmail());
             stmt.setString(5, customer.getAddress());
-            stmt.setInt(6, customer.getCustomerId());
+            stmt.setInt(6, customer.getCustomerID());
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException | ClassNotFoundException ex) {

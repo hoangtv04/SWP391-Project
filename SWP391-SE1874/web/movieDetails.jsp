@@ -63,7 +63,7 @@
                 <div class="add-comment">
                     <h2>Add Your Comment</h2>
                     <form id="comment-form" action="addComment" method="post">
-                        <input type="hidden" name="CustomerID" value="<%= customer.getCustomerId() %>">
+                        <input type="hidden" name="CustomerID" value="<%= customer.getCustomerID() %>">
                         <input type="hidden" name="movieId" value="${movie.movieID}">
                         <input type="hidden" name="customerId" value="1"> <!-- Giá trị mặc định cho customerId -->
                         <label for="rating">Rating:</label>

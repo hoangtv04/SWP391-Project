@@ -94,5 +94,6 @@ public class Booking {
 
     public void setCinemaID(int cinemaID) {
         this.cinemaID = cinemaID;
+
     }
 }
