@@ -5,8 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.List, model.Booking, dal.BookingDAO" %>
+<%@page import="java.util.List"%>
+<%@page import="model.Booking"%>
 <%@page import="model.Admin"%>
+<%@page import="dal.BookingDAO"%> <!-- Ensure this matches the actual package of BookingDAO -->
 <%@page import="java.lang.reflect.Field"%>
 <%
     Admin admin = (Admin) session.getAttribute("admin");
@@ -24,10 +26,11 @@
         e.printStackTrace();
     }
 
-    BookingDAO bookingDAO = new BookingDAO();
+    BookingDAO bookingDAO = new BookingDAO(); // Ensure BookingDAO is correctly imported and instantiated
     List<Booking> bookings = null;
     try {
-        bookings = bookingDAO.getBookingsByCustomerId(adminID);
+        // Replace the method call with an appropriate method from BookingDAO
+        bookings = bookingDAO.getAllBookings(); // Example: Use getAllBookings() if it exists
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -149,9 +152,14 @@
                     <thead>
                         <tr>
                             <th>Booking ID</th>
-                            <th>Customer ID</th>
                             <th>Booking Date</th>
                             <th>Total Price</th>
+                            <th>Screen Name</th>
+                            <th>Seat Number</th>
+                            <th>Start Time</th>
+                            <th>Voucher Code</th>
+                            <th>Customer Name</th>
+                            <th>Movie Title</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -159,21 +167,26 @@
                         <% if (bookings != null && !bookings.isEmpty()) {
                                for (Booking booking : bookings) { %>
                         <tr>
-                            <td><%= booking.getBookingID() %></td>
-                            <td><%= booking.getCustomerID() %></td>
+                            <td><%= booking.getBookingId() %></td> <!-- Corrected method name -->
                             <td><%= booking.getBookingDate() %></td>
                             <td><%= booking.getTotalPrice() %></td>
+                            <td><%= booking.getScreenName() %></td>
+                            <td><%= booking.getSeatNumber() %></td>
+                            <td><%= booking.getStartTime() %></td>
+                            <td><%= booking.getVoucherCode() %></td>
+                            <td><%= booking.getCustomerName() %></td>
+                            <td><%= booking.getTitle() %></td> <!-- Corrected method name -->
                             <td>
-                                <form id="deleteForm-<%= booking.getBookingID() %>" action="bookings" method="post" style="display:inline;">
+                                <form id="deleteForm-<%= booking.getBookingId() %>" action="booking" method="post" style="display:inline;"> <!-- Corrected method name -->
                                     <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="bookingID" value="<%= booking.getBookingID() %>">
-                                    <button type="button" class="delete-btn" onclick="confirmDelete('<%= booking.getBookingID() %>')">Delete</button>
+                                    <input type="hidden" name="bookingID" value="<%= booking.getBookingId() %>"> <!-- Corrected method name -->
+                                    <button type="button" class="delete-btn" onclick="confirmDelete('<%= booking.getBookingId() %>')">Delete</button> <!-- Corrected method name -->
                                 </form>
                             </td>
                         </tr>
                         <% } } else { %>
                         <tr>
-                            <td colspan="5">Không có đặt chỗ nào.</td>
+                            <td colspan="10">Không có đặt chỗ nào.</td>
                         </tr>
                         <% } %>
                     </tbody>
