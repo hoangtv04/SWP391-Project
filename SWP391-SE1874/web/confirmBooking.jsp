@@ -181,13 +181,19 @@
         <script>
             function applyVoucher(event) {
                 event.preventDefault();
+
+                // Get the original total price and the selected voucher discount amount
                 var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
                 var discountAmount = parseFloat(document.getElementById('voucherCode').value);
+
+                // Calculate the discounted price
                 var discountedPrice = totalPrice - discountAmount;
+
+                // Update the Discount Amount and Discounted Price fields
                 document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
                 document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
 
-                // Update hidden fields
+                // Update hidden fields for form submission
                 document.getElementById('hiddenDiscountedPrice').value = discountedPrice.toFixed(2);
                 document.getElementById('hiddenDiscountAmount').value = discountAmount.toFixed(2);
             }

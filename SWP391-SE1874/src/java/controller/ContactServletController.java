@@ -12,17 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import dal.BookingDAO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Booking;
 
 /**
  *
  * @author tovie
  */
-@WebServlet(name="ApplyVoucherController", urlPatterns={"/applyvoucher"})
-public class ApplyVoucherController extends HttpServlet {
+@WebServlet(name="ContactServletController", urlPatterns={"/contact"})
+public class ContactServletController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +35,10 @@ public class ApplyVoucherController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ApplyVoucherController</title>");  
+            out.println("<title>Servlet ContactServletController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ApplyVoucherController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ContactServletController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +55,7 @@ public class ApplyVoucherController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
     } 
 
     /** 
@@ -72,34 +68,7 @@ public class ApplyVoucherController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        // Retrieve booking information from request parameters
-        int customerId = Integer.parseInt(request.getParameter("customerId"));
-        int showtimeId = Integer.parseInt(request.getParameter("showtimeId"));
-        int seatId = Integer.parseInt(request.getParameter("seatId"));
-        int screenId = Integer.parseInt(request.getParameter("screenId"));
-        int voucherId = Integer.parseInt(request.getParameter("voucherId"));
-        double totalPrice = Double.parseDouble(request.getParameter("totalPrice"));
-        double discountedPrice = Double.parseDouble(request.getParameter("discountedPrice"));
-
-        // Create a new Booking object
-        Booking booking = new Booking();
-        booking.setCustomerId(customerId);
-        booking.setShowtimeId(showtimeId);
-        booking.setSeatId(seatId);
-        booking.setScreenId(screenId);
-        booking.setVoucherId(voucherId);
-        booking.setTotalPrice(discountedPrice); // Use discounted price
-
-        // Save the booking to the database
-        BookingDAO bookingDAO = new BookingDAO();
-        try {
-            bookingDAO.saveBooking(booking);
-        } catch (Exception ex) {
-            Logger.getLogger(ApplyVoucherController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        // Redirect to a confirmation page or display a success message
-        response.sendRedirect("confirmation.jsp");
+        processRequest(request, response);
     }
 
     /** 
