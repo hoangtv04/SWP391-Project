@@ -19,7 +19,7 @@
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-                background-color: #8b8585;
+                background-color: #ffffff;
             }
             .container {
                 margin-top: 20px;
@@ -32,7 +32,7 @@
                 border: 2px solid #fff;
                 border-radius: 5px;
                 padding: 10px;
-              background-color: #8b8585;
+                background-color: #8b8585;
                 transition: transform 0.3s ease;
                 position: relative;
             }
@@ -114,25 +114,29 @@
                 transform: scale(1.1);
             }
             .nav-link[href="movie"],
-            .nav-link[href="contact.jsp"],
+            .nav-link[href="contact"],
             .nav-link[href="members"] {
                 font-weight: bold;
             }
             .navbar-nav .nav-link {
-                color: blue !important;
+                color: rgb(254, 254, 254) !important;
             }
             .footer {
-                background-color: #636367c6;
-                padding: 40px 0;
+                background-color: #eaeaedc6;
+                padding: 10px 0; /* Further reduced padding */
                 text-align: center;
                 border-top: 1px solid #fafafa;
-                margin-top: 20px;
+                margin-top: 10px; /* Reduced margin at the top */
                 font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                font-size: 16px;
-                color: #f9f9f9;
+                font-size: 12px; /* Further reduced font size */
+                color: #0f0e0e;
             }
             .footer p {
-                margin: 0;
+                margin: 3px 0; /* Further reduced margin */
+            }
+            .footer h2 {
+                font-size: 14px; /* Further reduced heading size */
+                margin-bottom: 5px; /* Further reduced bottom margin */
             }
             .see-more-overlay {
                 position: absolute;
@@ -176,8 +180,13 @@
                 }
             }
             .navbar {
-                background-color: #dc1212; 
+                background-color: #ec3333; 
                 color: #fff;
+            }
+            .footer h2 {
+                font-size: 14px; /* Heading size */
+                margin-bottom: 5px; /* Bottom margin */
+                font-weight: bold; /* Make the text bold */
             }
         </style>
     </head>
@@ -197,7 +206,7 @@
                         <a class="nav-link" href="movie">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.jsp">Contact</a>
+                        <a class="nav-link" href="contact">Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="members">Members</a>
@@ -310,21 +319,24 @@
                 <div class="row">
                     <!-- Contact Information -->
                     <div class="col-md-6">
-                        <h2>Contact Us</h2>
+                        <h2>Liên Hệ</h2>
                         <p>
-                            XYZ Technologies<br>
-                            123 Nguyen Trai Street, District 3, Ho Chi Minh City<br>
-                            Hotline: 1800 123 456 / 0901 234 567<br>
-                            Email: contact@xyztechnologies.vn
-                        </p>
+                        CÔNG TY CỔ PHẦN XYZ TECHNOLOGIES<br><br>
+                        Giấy chứng nhận ĐKKD số: 0101234567 - Đăng ký lần đầu ngày 01/01/2015 tại Sở Kế hoạch và Đầu
+                        tư Thành phố Hồ Chí Minh<br><br>
+                        Địa chỉ trụ sở: Tầng 2, số 123, đường Nguyễn Trãi, phường 5, quận 3, thành phố Hồ Chí
+                        Minh<br><br>
+                        Hotline: 1800 123 456 / 0901 234 567<br><br>
+                        Email: contact@xyztechnologies.vn
+                    </p>
                     </div>
                     <!-- Business Inquiries -->
                     <div class="col-md-6">
-                        <h2>Business Inquiries</h2>
-                        <p>
-                            Hotline: 1800 987 654<br>
-                            Email: partnership@xyzgroup.vn
-                        </p>
+                        <h2>HỢP TÁC KINH DOANH:</h2>
+                    <p>
+                        Hotline: 1800 987 654<br><br>
+                        Email: partnership@xyzgroup.vn
+                    </p>
                     </div>
                     <!-- Newsletter Subscription -->
                 </div>

@@ -26,7 +26,7 @@
         <nav id="main-nav">
            
             <a href="movie">Home</a>
-            <a href="contact.jsp">Contact</a>
+            <a href="contact">Contact</a>
         </nav>
 
         <div class="container">

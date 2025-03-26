@@ -4,7 +4,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 
 public class Booking {
-    rivate int bookingId;
+    private int bookingId;
     private Date bookingDate;
     private double totalPrice;
     private String screenName;
@@ -34,39 +34,33 @@ public class Booking {
         this.startTime = startTime;
         this.voucherCode = voucherCode;
         this.customerName = customerName;
-        this.movieTitle = movieTitle;
+        this.title = title;
     }
 
     // Getters and Setters
+
     public int getBookingId() {
         return bookingId;
     }
 
-    public void setBookingID(int bookingID) {
-        this.BookingID = bookingID;
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
     }
 
-public int getCustomerID() {
-        return CustomerID;
-    }
-
-    public void setCustomerID(int customerID) {
-        this.CustomerID = customerID;
-    }
     public Date getBookingDate() {
-        return BookingDate;
+        return bookingDate;
     }
 
     public void setBookingDate(Date bookingDate) {
-        this.BookingDate = bookingDate;
+        this.bookingDate = bookingDate;
     }
 
     public double getTotalPrice() {
-        return TotalPrice;
+        return totalPrice;
     }
 
     public void setTotalPrice(double totalPrice) {
-        this.TotalPrice = totalPrice;
+        this.totalPrice = totalPrice;
     }
 
     public String getScreenName() {
@@ -156,4 +150,5 @@ public int getCustomerID() {
     public void setVoucherId(int voucherId) {
         this.voucherId = voucherId;
     }
+    
 }
