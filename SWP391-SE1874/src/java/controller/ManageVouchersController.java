@@ -84,8 +84,16 @@ public class ManageVouchersController extends HttpServlet {
                 }
             } else if ("delete".equals(action)) {
                 int voucherID = Integer.parseInt(request.getParameter("voucherID"));
-                dao.deleteVoucher(voucherID);
-                response.sendRedirect("voucher");
+                Logger.getLogger(ManageVouchersController.class.getName()).log(Level.INFO, "Deleting voucher with ID: {0}", voucherID);
+                boolean isDeleted = dao.deleteVoucher(voucherID);
+                if (isDeleted) {
+                    Logger.getLogger(ManageVouchersController.class.getName()).log(Level.INFO, "Voucher deleted successfully.");
+                    response.sendRedirect("voucher");
+                } else {
+                    Logger.getLogger(ManageVouchersController.class.getName()).log(Level.WARNING, "Failed to delete voucher with ID: {0}", voucherID);
+                    request.setAttribute("error", "Failed to delete the voucher. Please try again.");
+                    doGet(request, response);
+                }
                 return;
             }
             // Reload the voucher list before forwarding
@@ -93,7 +101,8 @@ public class ManageVouchersController extends HttpServlet {
             request.setAttribute("vouchers", vouchers);
             request.getRequestDispatcher("manageVouchers.jsp").forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ManageVouchersController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManageVouchersController.class.getName()).log(Level.SEVERE, "Error occurred in doPost", ex);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
         }
     }
 }
