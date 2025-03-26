@@ -154,6 +154,12 @@
             function closeEditPopup() {
                 document.getElementById("editPopup").style.display = "none";
             }
+            // Automatically open the Add Voucher popup if there is an error
+            window.onload = function () {
+                <% if (request.getAttribute("openAddPopup") != null && (boolean) request.getAttribute("openAddPopup")) { %>
+                    openAddPopup();
+                <% } %>
+            };
         </script>
     </head>
     <body>
@@ -221,9 +227,13 @@
         <div id="addPopup" class="popup">
             <form action="voucher" method="post">
                 <input type="hidden" name="action" value="add">
-                <input type="text" name="code" placeholder="Code" required>
-                <input type="number" name="discount" placeholder="Discount Amount" required>
-                <input type="date" name="expiry" required>
+                <!-- Display error message inside the popup -->
+                <c:if test="${not empty error}">
+                    <div style="color: red; margin-bottom: 10px;">${error}</div>
+                </c:if>
+                <input type="text" name="code" placeholder="Code" value="${code}" required>
+                <input type="number" name="discount" placeholder="Discount Amount" value="${discount}" required>
+                <input type="date" name="expiry" value="${expiry}" required>
                 <input type="hidden" name="admin" value="<%= admin.getAdminId() %>">
                 <button type="submit">Add</button>
                 <button type="button" onclick="closeAddPopup()">Close</button>
