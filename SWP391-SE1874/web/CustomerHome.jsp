@@ -222,10 +222,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="members">Members</a>
                     </li>
+                    <%
+                        model.Customer customer = (model.Customer) session.getAttribute("customer");
+                        if (customer == null) {
+                            response.sendRedirect("Login.jsp");
+                            return;
+                        }
+                    %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bookingHistory?customerId=<%= customer.getCustomerID() %>">Booked</a>
+                    </li>
                 </ul>
-                <%
-                    model.Customer customer = (model.Customer) session.getAttribute("customer");
-                %>
                 <div class="dropdown ml-3">
                     <img src="image customer/customer.jpg" alt="Customer" class="customer-img dropdown-toggle" id="customerDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="customerDropdown" style="width: 250px;">
