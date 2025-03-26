@@ -19,7 +19,7 @@
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-                background-color: #ffffff;
+        background-color: #ffffff;
             }
             .container {
                 margin-top: 20px;
@@ -70,10 +70,10 @@
                 height: 500px;
                 object-fit: cover;
                 border-radius: 5px;
-                transition: transform 0.3s ease; 
+                transition: transform 0.3s ease;
             }
             .carousel-item img {
-                height: 550px; 
+                height: 550px;
             }
             .carousel-indicators li {
                 width: 12px;
@@ -105,7 +105,7 @@
             .nav-link {
                 font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
                 font-size: 18px;
-                color: blue; 
+                color: blue;
                 transition: color 0.3s ease, text-decoration 0.3s ease, transform 0.3s ease;
             }
             .nav-link:hover {
@@ -119,7 +119,7 @@
                 font-weight: bold;
             }
             .navbar-nav .nav-link {
-                color: rgb(254, 254, 254) !important;
+      color: rgb(254, 254, 254) !important;
             }
             .footer {
                 background-color: #eaeaedc6;
@@ -131,8 +131,9 @@
                 font-size: 12px; /* Further reduced font size */
                 color: #0f0e0e;
             }
+
             .footer p {
-                margin: 3px 0; /* Further reduced margin */
+     margin: 3px 0; /* Further reduced margin */
             }
             .footer h2 {
                 font-size: 14px; /* Further reduced heading size */
@@ -180,7 +181,7 @@
                 }
             }
             .navbar {
-                background-color: #ec3333; 
+background-color: #ec3333; 
                 color: #fff;
             }
             .footer h2 {
@@ -200,7 +201,7 @@
                 <form class="form-inline mr-auto" action="searchmovie" method="get">
                     <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search movies" aria-label="Search">
                     <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                </form>             
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="movie">Home <span class="sr-only">(current)</span></a>
@@ -225,7 +226,7 @@
                             <button class="btn btn-primary btn-block" type="submit">Ticket History</button>
                         </form>
                         <hr>
-                        <form action="logout" method="get">
+                        <form action="Login.jsp" method="post">
                             <button class="btn btn-danger btn-block" type="submit">Logout</button>
                         </form>
                     </div>
@@ -280,9 +281,9 @@
                         if (i % 3 == 0) {
             %>
             <div class="row">
-            <%
-                        }
-            %>
+                <%
+                            }
+                %>
                 <div class="col-md-4 movie-item">
                     <div class="card h-100 d-flex flex-column">
                         <img src="images poster/phim<%= movies.get(i).getMovieID() %>.jpg" class="card-img-top" alt="<%= movies.get(i).getTitle() %>">
@@ -295,10 +296,10 @@
                         </div>
                     </div>
                 </div>
-            <%
-                        index++;
-                        if ((i + 1) % 3 == 0 || i == movies.size() - 1) {
-            %>
+                <%
+                            index++;
+                            if ((i + 1) % 3 == 0 || i == movies.size() - 1) {
+                %>
             </div>
             <%
                         }
@@ -315,7 +316,7 @@
 
         <!-- Footer Section -->
         <footer class="footer">
-            <div class="container">
+<div class="container">
                 <div class="row">
                     <!-- Contact Information -->
                     <div class="col-md-6">
@@ -329,7 +330,7 @@
                         Hotline: 1800 123 456 / 0901 234 567<br><br>
                         Email: contact@xyztechnologies.vn
                     </p>
-                    </div>
+</div>
                     <!-- Business Inquiries -->
                     <div class="col-md-6">
                         <h2>HỢP TÁC KINH DOANH:</h2>
@@ -340,10 +341,12 @@
                     </div>
                     <!-- Newsletter Subscription -->
                 </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <p>&copy; 2025 XYZ Technologies. All rights reserved.</p>
-                    </div>
+                <div class="business-contact">
+                    <h2>HỢP TÁC KINH DOANH:</h2>
+                    <p>
+                        Hotline: 1800 987 654<br><br>
+                        Email: partnership@xyzgroup.vn
+                    </p>
                 </div>
             </div>
         </footer>

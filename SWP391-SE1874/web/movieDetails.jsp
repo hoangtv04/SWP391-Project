@@ -36,7 +36,7 @@
 
         <nav id="main-nav">
             <a href="movie">Home</a>
-            <a href="movies.jsp">Movies</a>
+ <a href="movies.jsp">Movies</a>
             <a href="contact">Contact</a>
         </nav>
 

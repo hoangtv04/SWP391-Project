@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Date;
-import java.sql.Timestamp;
 
 public class Booking {
     private int bookingId;
@@ -46,7 +45,6 @@ public class Booking {
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
     }
-
     public Date getBookingDate() {
         return bookingDate;
     }
@@ -61,7 +59,7 @@ public class Booking {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-    }
+  }
 
     public String getScreenName() {
         return screenName;
@@ -99,56 +97,53 @@ public class Booking {
         return customerName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public int getScreenID() {
+        return screenID;
     }
 
-    public String getTitle() {
-        return title;
+    public void setScreenID(int screenID) {
+        this.screenID = screenID;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public int getSeatID() {
+        return seatID;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public void setSeatID(int seatID) {
+        this.seatID = seatID;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public int getShowtimeID() {
+        return showtimeID;
     }
 
-    public int getShowtimeId() {
-        return showtimeId;
+    public void setShowtimeID(int showtimeID) {
+        this.showtimeID = showtimeID;
     }
 
-    public void setShowtimeId(int showtimeId) {
-        this.showtimeId = showtimeId;
+    public int getVoucherID() {
+        return voucherID;
     }
 
-    public int getSeatId() {
-        return seatId;
+    public void setVoucherID(int voucherID) {
+        this.voucherID = voucherID;
     }
 
-    public void setSeatId(int seatId) {
-        this.seatId = seatId;
+    public int getMovieID() {
+        return movieID;
     }
 
-    public int getScreenId() {
-        return screenId;
+    public void setMovieID(int movieID) {
+        this.movieID = movieID;
     }
 
-    public void setScreenId(int screenId) {
-        this.screenId = screenId;
+    public int getCinemaID() {
+        return cinemaID;
     }
 
-    public int getVoucherId() {
-        return voucherId;
-    }
+    public void setCinemaID(int cinemaID) {
+        this.cinemaID = cinemaID;
 
-    public void setVoucherId(int voucherId) {
-        this.voucherId = voucherId;
     }
     
 }

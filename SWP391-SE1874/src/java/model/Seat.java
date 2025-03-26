@@ -6,6 +6,7 @@ public class Seat {
     private String seatNumber;
     private String seatType;
     private double price;
+    private String status;
 
     public Seat() {}
 
@@ -49,5 +50,11 @@ public class Seat {
         this.price = price;
     }
 
-    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

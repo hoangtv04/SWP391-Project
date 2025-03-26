@@ -9,6 +9,8 @@
     String movieName = (String) request.getAttribute("movieName");
     String cinemaName = (String) request.getAttribute("cinemaName");
     String screenName = (String) request.getAttribute("screenName");
+    String startTime = (String) request.getAttribute("startTime");
+    String endTime = (String) request.getAttribute("endTime");
 
     double totalPrice = 0;
     if (selectedSeats != null) {
@@ -84,7 +86,8 @@
 
                 <h2>Movie: <%= movieName %></h2>
                 <p><strong>Cinema:</strong> <%= cinemaName %></p>
-                <p><strong>Showtime:</strong> <%= request.getAttribute("startTime") %> - <%= request.getAttribute("endTime") %></p>
+                <p><strong>Screen:</strong> <%= screenName %></p>                
+                <p><strong>Start Time:</strong> <%= startTime %> </p>
                 <p><strong>Seats:</strong>
                     <%
                         if (selectedSeats != null) {

@@ -16,16 +16,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Seat;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name="SelectSeatServlet", urlPatterns={"/selectSeat"})
 public class SelectSeatServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {       
         try {
             int movieId = Integer.parseInt(request.getParameter("movieId"));
             String movieName = request.getParameter("movieName");
@@ -33,6 +29,8 @@ public class SelectSeatServlet extends HttpServlet {
             String cinemaName = request.getParameter("cinemaName");
             int screenId = Integer.parseInt(request.getParameter("screenId"));
             String screenName = request.getParameter("screenName");
+            String startTime = request.getParameter("startTime");
+            String endTime = request.getParameter("endTime");
 
             SeatDAO seatDAO = new SeatDAO();
             List<Seat> seats = seatDAO.getSeatsByMovieCinemaScreen(movieId, cinemaId, screenId);
@@ -43,6 +41,9 @@ public class SelectSeatServlet extends HttpServlet {
             request.setAttribute("cinemaName", cinemaName);
             request.setAttribute("screenId", screenId);
             request.setAttribute("screenName", screenName);
+            request.setAttribute("startTime", startTime);
+            request.setAttribute("endTime", endTime);
+
             request.getRequestDispatcher("/selectSeat.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             e.printStackTrace();
