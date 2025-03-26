@@ -86,6 +86,7 @@
 
                 <h2>Movie: <%= movieName %></h2>
                 <p><strong>Cinema:</strong> <%= cinemaName %></p>
+                <p><strong>Screen:</strong> <%= screenName %></p>                
                 <p><strong>Start Time:</strong> <%= startTime %> </p>
                 <p><strong>Seats:</strong>
                     <%
