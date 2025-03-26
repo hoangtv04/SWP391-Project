@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.sql.Timestamp; // Sửa import từ jdk.jfr.Timestamp thành java.sql.Timestamp
 
 public class Booking {
     private int bookingId;
@@ -8,7 +9,7 @@ public class Booking {
     private double totalPrice;
     private String screenName;
     private String seatNumber;
-    private Timestamp startTime;
+    private Timestamp startTime; // Sửa kiểu dữ liệu
     private String voucherCode;
     private String customerName;
     private String title;
@@ -45,6 +46,7 @@ public class Booking {
     public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
     }
+
     public Date getBookingDate() {
         return bookingDate;
     }
@@ -59,7 +61,7 @@ public class Booking {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-  }
+    }
 
     public String getScreenName() {
         return screenName;
@@ -97,53 +99,57 @@ public class Booking {
         return customerName;
     }
 
-    public int getScreenID() {
-        return screenID;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public void setScreenID(int screenID) {
-        this.screenID = screenID;
+    public String getTitle() {
+        return title;
     }
 
-    public int getSeatID() {
-        return seatID;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setSeatID(int seatID) {
-        this.seatID = seatID;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public int getShowtimeID() {
-        return showtimeID;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public void setShowtimeID(int showtimeID) {
-        this.showtimeID = showtimeID;
+    public int getShowtimeId() {
+        return showtimeId;
     }
 
-    public int getVoucherID() {
-        return voucherID;
+    public void setShowtimeId(int showtimeId) {
+this.showtimeId = showtimeId;
     }
 
-    public void setVoucherID(int voucherID) {
-        this.voucherID = voucherID;
+    public int getSeatId() {
+        return seatId;
     }
 
-    public int getMovieID() {
-        return movieID;
+    public void setSeatId(int seatId) {
+        this.seatId = seatId;
     }
 
-    public void setMovieID(int movieID) {
-        this.movieID = movieID;
+    public int getScreenId() {
+        return screenId;
     }
 
-    public int getCinemaID() {
-        return cinemaID;
+    public void setScreenId(int screenId) {
+        this.screenId = screenId;
     }
 
-    public void setCinemaID(int cinemaID) {
-        this.cinemaID = cinemaID;
-
+    public int getVoucherId() {
+        return voucherId;
     }
+
+    public void setVoucherId(int voucherId) {
+        this.voucherId = voucherId;
+    }
+
     
 }

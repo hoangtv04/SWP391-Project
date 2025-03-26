@@ -187,18 +187,18 @@
                            if (customers != null && !customers.isEmpty()) {
                                for (Customer customer : customers) { %>
                         <tr>
-                            <td><%= customer.getCustomerId() %></td>
+                            <td><%= customer.getCustomerID() %></td>
                             <td><%= customer.getPhone() %></td>
                             <td><%= customer.getCustomerName() %></td>
                             <td><%= customer.getPassword() %></td>
                             <td><%= customer.getEmail() %></td>
                             <td><%= customer.getAddress() %></td>
                             <td>
-                                <button onclick="openPopup('<%= customer.getCustomerId() %>', '<%= customer.getPhone() %>', '<%= customer.getCustomerName() %>', '<%= customer.getPassword() %>', '<%= customer.getEmail() %>', '<%= customer.getAddress() %>')">Edit</button>
-                                <form id="deleteForm-<%= customer.getCustomerId() %>" action="user" method="post" style="display:inline;">
+                                <button onclick="openPopup('<%= customer.getCustomerID() %>', '<%= customer.getPhone() %>', '<%= customer.getCustomerName() %>', '<%= customer.getPassword() %>', '<%= customer.getEmail() %>', '<%= customer.getAddress() %>')">Edit</button>
+                                <form id="deleteForm-<%= customer.getCustomerID() %>" action="user" method="post" style="display:inline;">
                                     <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="customerID" value="<%= customer.getCustomerId() %>">
-                                    <button type="button" class="delete-btn" onclick="confirmDelete('<%= customer.getCustomerId() %>')">Delete</button>
+                                    <input type="hidden" name="customerID" value="<%= customer.getCustomerID() %>">
+                                    <button type="button" class="delete-btn" onclick="confirmDelete('<%= customer.getCustomerID() %>')">Delete</button>
                                 </form>
                             </td>
                         </tr>
