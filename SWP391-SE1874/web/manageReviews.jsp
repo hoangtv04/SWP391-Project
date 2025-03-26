@@ -113,7 +113,7 @@
             <a href="user">Manage Users</a>
             <a href="Movies">Manage Movies</a>
             <a href="Showtime">Manage Showtimes</a>
-            <a href="manageBookings.jsp">Manage Bookings</a>
+            <a href="booking">Manage Bookings</a>
             <a href="reviews">Manage Reviews</a>
             <a href="voucher">Manage Vouchers</a>
         </div>
