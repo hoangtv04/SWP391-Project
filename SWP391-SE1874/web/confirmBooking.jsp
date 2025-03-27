@@ -255,15 +255,26 @@
                 document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
                 document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
 
-                // Update hidden fields for form submission
+                // Update hidden fields in voucherForm
                 document.getElementById('hiddenDiscountedPrice').value = discountedPrice.toFixed(2);
                 document.getElementById('hiddenDiscountAmount').value = discountAmount.toFixed(2);
 
-                // Set the voucherId based on the selected option
+                // Set the voucherId based on selected option
                 var selectedVoucherId = voucherSelect.options[voucherSelect.selectedIndex].getAttribute('data-voucher-id');
-                document.getElementById('voucherId').value = selectedVoucherId || ""; // Ensure it's not null
-            }
-        </script>
 
+                // Update BOTH voucherId fields (in both forms)
+                var voucherInputs = document.querySelectorAll('input[name="voucherId"]');
+                voucherInputs.forEach(function (input) {
+                    input.value = selectedVoucherId || "";
+                });
+            }
+
+        </script>
+        <script>
+            // Gọi khi trang vừa load để gán giá trị voucherId mặc định
+            window.addEventListener("load", function () {
+                updateDiscountedPriceAndVoucherId();
+            });
+        </script>
     </body>
 </html>
