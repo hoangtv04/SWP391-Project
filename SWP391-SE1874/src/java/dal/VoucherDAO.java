@@ -55,7 +55,12 @@ public class VoucherDAO extends DBContext {
         String query = "DELETE FROM Voucher WHERE VoucherID = ?";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, voucherID);
-            return stmt.executeUpdate() > 0;
+            int rowsAffected = stmt.executeUpdate();
+            Logger.getLogger(VoucherDAO.class.getName()).log(Level.INFO, "Rows affected by delete: {0}", rowsAffected);
+            return rowsAffected > 0;
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(VoucherDAO.class.getName()).log(Level.SEVERE, "Error deleting voucher with ID: " + voucherID, ex);
+            throw ex;
         }
     }
     

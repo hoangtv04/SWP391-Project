@@ -19,6 +19,9 @@
         }
     }
 
+    VoucherDAO voucherDAO = new VoucherDAO();
+    List<Voucher> vouchers = voucherDAO.getAllVouchers();
+
     // Generate QR code URL (for demonstration purposes, using a placeholder URL)
     String qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Total%20Price:%20" + totalPrice;
 %>
@@ -40,6 +43,29 @@
                 }
             });
         </script>
+        <style>
+            #voucherForm label {
+                font-size: 1.2em;
+                font-weight: bold;
+                color: #333;
+            }
+            #voucherForm select {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+            #voucherForm button {
+                font-size: 0.9em;
+                padding: 8px;
+                border: 2px solid #333;
+                font-weight: bold;
+                color: #333;
+                transition: background-color 0.3s, color 0.3s;
+            }
+            #voucherForm button:hover {
+                background-color: #333; 
+                color: #fff;
+            }
+        </style>
     </head>
     <body>
         <header class="header">
@@ -72,8 +98,35 @@
                         }
                     }
                 %>
-                <p><strong>Total Price:</strong> $<%= totalPrice %></p>
 
+                <p><strong>Total Price:</strong> $<span id="totalPrice"><%= totalPrice %></span></p>
+
+                <form id="voucherForm" action="applyvoucher" method="post" onsubmit="applyVoucher(event)">
+                    <label for="voucherCode">Select Voucher:</label>
+                    <select name="voucherCode" id="voucherCode" onchange="updateDiscountedPrice()">
+                        <%
+                            for (Voucher voucher : vouchers) {
+                        %>
+                        <option value="<%= voucher.getDiscountAmount() %>"><%= voucher.getCode() %> - $<%= voucher.getDiscountAmount() %></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                    <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                    <input type="hidden" name="discountedPrice" id="hiddenDiscountedPrice" value="<%= totalPrice %>">
+                    <input type="hidden" name="discountAmount" id="hiddenDiscountAmount" value="0.00">
+                    <input type="hidden" name="customerId" value="<%= request.getSession().getAttribute("customerId") %>">
+                    <input type="hidden" name="showtimeId" value="<%= request.getSession().getAttribute("showtimeId") %>">
+                    <input type="hidden" name="seatId" value="<%= request.getSession().getAttribute("seatId") %>">
+                    <input type="hidden" name="screenName" value="<%= request.getSession().getAttribute("screenName") %>">
+                    <input type="hidden" name="screenId" value="<%= request.getSession().getAttribute("screenId") %>">
+                    <input type="hidden" name="voucherId" value="<%= request.getSession().getAttribute("voucherId") %>">
+                    <input type="hidden" name="movieId" value="<%= request.getSession().getAttribute("movieId") %>">
+                    <button type="submit">Apply Voucher</button>
+                </form>
+
+                <p><strong>Discount Amount:</strong> $<span id="discountAmount">0.00</span></p>
+                <p><strong>Total Price:</strong> $<span id="discountedPrice"><%= totalPrice %></span></p>
                 <div class="confirm-booking-button-container">
                     <button class="back-button" onclick="window.history.back(); return false;">Back</button>
                     <button type="submit" class="confirm-booking-button">Done</button>
@@ -107,7 +160,7 @@
         <script>
             document.querySelector('.confirm-booking-button').addEventListener('click', function (event) {
                 event.preventDefault();
-                alert('Booking successful!');
+                alert('Your booking has been successfully confirmed!');
                 window.location.href = 'movie';
             });
         </script>
@@ -115,6 +168,34 @@
             // Hàm quay lại trang trước đó
             function goBack() {
                 window.history.back();
+            }
+        </script>
+        <script>
+            function updateDiscountedPrice() {
+                var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
+                var discountAmount = parseFloat(document.getElementById('voucherCode').value);
+                var discountedPrice = totalPrice - discountAmount;
+                document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
+            }
+        </script>
+        <script>
+            function applyVoucher(event) {
+                event.preventDefault();
+
+                // Get the original total price and the selected voucher discount amount
+                var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
+                var discountAmount = parseFloat(document.getElementById('voucherCode').value);
+
+                // Calculate the discounted price
+                var discountedPrice = totalPrice - discountAmount;
+
+                // Update the Discount Amount and Discounted Price fields
+                document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
+                document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
+
+                // Update hidden fields for form submission
+                document.getElementById('hiddenDiscountedPrice').value = discountedPrice.toFixed(2);
+                document.getElementById('hiddenDiscountAmount').value = discountAmount.toFixed(2);
             }
         </script>
         <script>
