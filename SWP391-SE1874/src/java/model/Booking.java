@@ -18,7 +18,8 @@ public class Booking {
     private int seatId;
     private int screenId;
     private int voucherId;
-
+    private int movieId;
+    private int cinemaId;
     // Constructor
     
     public Booking() {
@@ -35,6 +36,35 @@ public class Booking {
         this.voucherCode = voucherCode;
         this.customerName = customerName;
         this.title = title;
+    }
+
+    public Booking(int bookingId, Date bookingDate, double totalPrice, String screenName, String seatNumber, int customerId, int showtimeId, int seatId, int screenId, int voucherId) {
+        this.bookingId = bookingId;
+        this.bookingDate = bookingDate;
+        this.totalPrice = totalPrice;
+        this.screenName = screenName;
+        this.seatNumber = seatNumber;
+        this.customerId = customerId;
+        this.showtimeId = showtimeId;
+        this.seatId = seatId;
+        this.screenId = screenId;
+        this.voucherId = voucherId;
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
     }
 
     // Getters and Setters

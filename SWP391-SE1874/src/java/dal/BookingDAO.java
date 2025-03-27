@@ -130,7 +130,7 @@ public class BookingDAO extends DBContext {
 
     // Method to add a new booking
     public boolean addBooking(Booking booking) {
-        String query = "INSERT INTO Booking (CustomerID, BookingDate, TotalPrice, ScreenID, SeatID, ShowtimeID, VoucherID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Booking (CustomerID, BookingDate, TotalPrice, ScreenID, SeatID, ShowtimeID, VoucherID, MovieID, CinemaID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, booking.getCustomerId());
@@ -140,6 +140,8 @@ public class BookingDAO extends DBContext {
             stmt.setInt(5, booking.getSeatId());
             stmt.setInt(6, booking.getShowtimeId());
             stmt.setInt(7, booking.getVoucherId());
+            stmt.setInt(8, booking.getMovieId());
+            stmt.setInt(9, booking.getCinemaId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, "Error adding booking", ex);

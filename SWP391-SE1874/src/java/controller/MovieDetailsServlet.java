@@ -45,12 +45,16 @@ public class MovieDetailsServlet extends HttpServlet {
                 averageRating = (double) totalRating / reviews.size();
             }
 
-            request.setAttribute("movie", movie);
-            request.setAttribute("showtimes", showtimes);
-            request.setAttribute("reviews", reviews);
-            request.setAttribute("customerNames", customerNames);
-            request.setAttribute("averageRating", String.format("%.1f", averageRating));
-            request.getRequestDispatcher("movieDetails.jsp").forward(request, response);
+            if (movie != null) {
+                request.setAttribute("movie", movie); // Ensure movie is set in the request
+                request.setAttribute("showtimes", showtimes);
+                request.setAttribute("reviews", reviews);
+                request.setAttribute("customerNames", customerNames);
+                request.setAttribute("averageRating", String.format("%.1f", averageRating));
+                request.getRequestDispatcher("movieDetails.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("error.jsp");
+            }
         } else {
             response.sendRedirect("error.jsp");
         }

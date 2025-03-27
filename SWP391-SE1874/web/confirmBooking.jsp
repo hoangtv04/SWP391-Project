@@ -3,7 +3,16 @@
 <%@ page import="model.Seat" %>
 <%@ page import="model.Voucher" %>
 <%@ page import="dal.VoucherDAO" %>
+<%@page import="model.Customer"%>
+<%
+    Customer customer = (Customer) session.getAttribute("customer");
+    if (customer == null) {
+        response.sendRedirect("Login.jsp");
+        return;
+    }
+    
 
+%>
 <%
     List<Seat> selectedSeats = (List<Seat>) request.getAttribute("selectedSeats");
     String movieName = (String) request.getAttribute("movieName");
@@ -103,11 +112,13 @@
 
                 <form id="voucherForm" action="applyvoucher" method="post" onsubmit="applyVoucher(event)">
                     <label for="voucherCode">Select Voucher:</label>
-                    <select name="voucherCode" id="voucherCode" onchange="updateDiscountedPrice()">
+                    <select name="voucherCode" id="voucherCode" onchange="updateDiscountedPriceAndVoucherId()">
                         <%
                             for (Voucher voucher : vouchers) {
                         %>
-                        <option value="<%= voucher.getDiscountAmount() %>"><%= voucher.getCode() %> - $<%= voucher.getDiscountAmount() %></option>
+                        <option value="<%= voucher.getDiscountAmount() %>" data-voucher-id="<%= voucher.getVoucherID() %>">
+                            <%= voucher.getCode() %> - $<%= voucher.getDiscountAmount() %>
+                        </option>
                         <%
                             }
                         %>
@@ -115,12 +126,12 @@
                     <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
                     <input type="hidden" name="discountedPrice" id="hiddenDiscountedPrice" value="<%= totalPrice %>">
                     <input type="hidden" name="discountAmount" id="hiddenDiscountAmount" value="0.00">
-                    <input type="hidden" name="customerId" value="<%= request.getSession().getAttribute("customerId") %>">
+                    <input type="hidden" name="customerId" value="<%= customer.getCustomerID() %>">
                     <input type="hidden" name="showtimeId" value="<%= request.getSession().getAttribute("showtimeId") %>">
                     <input type="hidden" name="seatId" value="<%= request.getSession().getAttribute("seatId") %>">
                     <input type="hidden" name="screenName" value="<%= request.getSession().getAttribute("screenName") %>">
                     <input type="hidden" name="screenId" value="<%= request.getSession().getAttribute("screenId") %>">
-                    <input type="hidden" name="voucherId" value="<%= request.getSession().getAttribute("voucherId") %>">
+                    <input type="hidden" name="voucherId" id="voucherId" value="">
                     <input type="hidden" name="movieId" value="<%= request.getSession().getAttribute("movieId") %>">
                     <button type="submit">Apply Voucher</button>
                 </form>
@@ -129,7 +140,26 @@
                 <p><strong>Total Price:</strong> $<span id="discountedPrice"><%= totalPrice %></span></p>
                 <div class="confirm-booking-button-container">
                     <button class="back-button" onclick="window.history.back(); return false;">Back</button>
-                    <button type="submit" class="confirm-booking-button">Done</button>
+                    <form id="bookingForm" action="confirmBooking" method="post">
+                        <input type="hidden" name="action" value="done">
+                        <input type="hidden" name="movieName" value="<%= movieName %>">
+                        <input type="hidden" name="cinemaName" value="<%= cinemaName %>">
+                        <input type="hidden" name="screenName" value="<%= screenName %>">
+                        <input type="hidden" name="startTime" value="<%= startTime %>">
+                        <input type="hidden" name="endTime" value="<%= endTime %>">
+                        <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                        <input type="hidden" name="voucherId" id="voucherId" value="">
+                        <%
+                            if (selectedSeats != null) {
+                                for (Seat seat : selectedSeats) {
+                        %>
+                        <input type="hidden" name="seatIds" value="<%= seat.getSeatID() %>">
+                        <%
+                                }
+                            }
+                        %>
+                        <button type="submit" class="confirm-booking-button">Done</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -196,6 +226,16 @@
                 // Update hidden fields for form submission
                 document.getElementById('hiddenDiscountedPrice').value = discountedPrice.toFixed(2);
                 document.getElementById('hiddenDiscountAmount').value = discountAmount.toFixed(2);
+
+                // Ensure the voucherId is updated before submitting the form
+                var voucherId = document.getElementById('voucherId').value;
+                if (!voucherId) {
+                    alert("Please select a valid voucher.");
+                    return;
+                }
+
+                // Submit the form
+                document.getElementById('voucherForm').submit();
             }
         </script>
         <script>
@@ -203,6 +243,26 @@
                 event.preventDefault();
                 document.getElementById('bookingForm').submit();
             });
+        </script>
+        <script>
+            function updateDiscountedPriceAndVoucherId() {
+                var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
+                var voucherSelect = document.getElementById('voucherCode');
+                var discountAmount = parseFloat(voucherSelect.value);
+                var discountedPrice = totalPrice - discountAmount;
+
+                // Update the discounted price and discount amount
+                document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
+                document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
+
+                // Update hidden fields for form submission
+                document.getElementById('hiddenDiscountedPrice').value = discountedPrice.toFixed(2);
+                document.getElementById('hiddenDiscountAmount').value = discountAmount.toFixed(2);
+
+                // Set the voucherId based on the selected option
+                var selectedVoucherId = voucherSelect.options[voucherSelect.selectedIndex].getAttribute('data-voucher-id');
+                document.getElementById('voucherId').value = selectedVoucherId || ""; // Ensure it's not null
+            }
         </script>
 
     </body>

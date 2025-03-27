@@ -113,7 +113,20 @@
                 });
             });
         </script>
-        
+        <script>
+            document.querySelectorAll('.seat-selection').forEach(function (seatElement) {
+                seatElement.addEventListener('change', function () {
+                    var selectedSeatId = this.value;
+                    if (selectedSeatId) {
+                        // Send the selected seatId to the server to store it in the session
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'storeSeatInSession', true);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.send('seatId=' + selectedSeatId);
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <header class="header">
@@ -153,7 +166,7 @@
                                 }
                     %>
                     <div class="seat <%= seat.getSeatType().equalsIgnoreCase("VIP") ? "vip-seat" : "regular-seat" %>">
-                        <input type="checkbox" id="seat<%= seat.getSeatID() %>" name="seatIds" value="<%= seat.getSeatID() %>">
+                        <input type="checkbox" id="seat<%= seat.getSeatID() %>" name="seatIds" value="<%= seat.getSeatID() %>" class="seat-selection">
                         <label for="seat<%= seat.getSeatID() %>"><%= seat.getSeatNumber() %></label>
                     </div>
                     <%

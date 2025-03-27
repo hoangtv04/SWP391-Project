@@ -216,6 +216,15 @@ function formatDateTime(dateTime) {
             document.getElementById('cinema').addEventListener('change', function () {
                 var selectedCinema = this.options[this.selectedIndex].text;
                 document.getElementById('cinemaName').value = selectedCinema;
+
+                var selectedCinemaId = this.value;
+                if (selectedCinemaId) {
+                    // Send the selected cinemaId to the server to store it in the session
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'storeCinemaInSession', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.send('cinemaId=' + selectedCinemaId);
+                }
             });
 
             document.getElementById('screen').addEventListener('change', function () {
@@ -231,6 +240,29 @@ function formatDateTime(dateTime) {
                 document.getElementById('endTime').value = endTime;
                 document.getElementById('seat').disabled = false;
             });
+
+            document.getElementById('showtime').addEventListener('change', function () {
+                var selectedShowtimeId = this.value;
+                if (selectedShowtimeId) {
+                    // Send the selected showtimeId to the server to store it in the session
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'storeShowtimeInSession', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.send('showtimeId=' + selectedShowtimeId);
+                }
+            });
+
+            document.getElementById('screen').addEventListener('change', function () {
+                var selectedScreenId = this.value;
+                if (selectedScreenId) {
+                    // Send the selected screenId to the server to store it in the session
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'storeScreenInSession', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.send('screenId=' + selectedScreenId);
+                }
+            });
+
         </script>
     </body>
 </html>

@@ -42,6 +42,8 @@
 
         <div class="container">
             <c:if test="${not empty movie}">
+                <c:set var="movieId" value="${movie.movieID}" scope="session" />
+                <c:set var="movieTitle" value="${movie.title}" scope="session" />
                 <div class="movie-details">
                     <h1>${movie.title}</h1>
                     <div class="movie-info">
