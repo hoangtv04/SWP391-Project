@@ -3,7 +3,14 @@
 <%@ page import="model.Seat" %>
 <%@ page import="model.Voucher" %>
 <%@ page import="dal.VoucherDAO" %>
-
+<%@page import="model.Customer"%>
+<%
+    Customer customer = (Customer) session.getAttribute("customer");
+    if (customer == null) {
+        response.sendRedirect("Login.jsp");
+        return;
+    }
+%>
 <%
     List<Seat> selectedSeats = (List<Seat>) request.getAttribute("selectedSeats");
     String movieName = (String) request.getAttribute("movieName");

@@ -7,7 +7,14 @@
 <%@ page import="jakarta.servlet.http.HttpServletRequest" %>
 <%@ page import="jakarta.servlet.http.HttpServletResponse" %>
 <%@ page import="jakarta.servlet.RequestDispatcher" %>
-
+<%@page import="model.Customer"%>
+<%
+    Customer customer = (Customer) session.getAttribute("customer");
+    if (customer == null) {
+        response.sendRedirect("Login.jsp");
+        return;
+    }
+%>
 <%
     // Retrieve the list of showtimes, cinemas, screens, and seats from the request
     List<Showtime> showtimes = (List<Showtime>) request.getAttribute("showtimes");

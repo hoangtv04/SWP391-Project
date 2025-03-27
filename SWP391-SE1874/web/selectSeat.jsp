@@ -1,7 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Seat" %>
-
+<%@page import="model.Customer"%>
+<%
+    Customer customer = (Customer) session.getAttribute("customer");
+    if (customer == null) {
+        response.sendRedirect("Login.jsp");
+        return;
+    }
+%>
 <%
     // Retrieve the list of seats and other attributes from the request
     List<Seat> seats = (List<Seat>) request.getAttribute("seats");
