@@ -14,6 +14,7 @@ public class Booking {
     private String customerName;
     private String title;
     private int customerId;
+    private int movieId; // Added movieId field
     private int showtimeId;
     private int seatId;
     private int screenId;
@@ -22,6 +23,7 @@ public class Booking {
     // Constructor
     
     public Booking() {
+        this.bookingDate = new Date(); // Initialize booking date with current date
     }
 
     // Parameterized constructor
@@ -119,12 +121,20 @@ public class Booking {
         this.customerId = customerId;
     }
 
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
     public int getShowtimeId() {
         return showtimeId;
     }
 
     public void setShowtimeId(int showtimeId) {
-this.showtimeId = showtimeId;
+        this.showtimeId = showtimeId;
     }
 
     public int getSeatId() {
