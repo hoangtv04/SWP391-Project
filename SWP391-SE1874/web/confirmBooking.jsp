@@ -117,7 +117,7 @@
                             for (Voucher voucher : vouchers) {
                         %>
                         <option value="<%= voucher.getDiscountAmount() %>" data-voucher-id="<%= voucher.getVoucherID() %>">
-                            <%= voucher.getCode() %> - $<%= voucher.getDiscountAmount() %>
+                            <%= voucher.getCode() %>
                         </option>
                         <%
                             }
@@ -132,8 +132,7 @@
                     <input type="hidden" name="screenName" value="<%= request.getSession().getAttribute("screenName") %>">
                     <input type="hidden" name="screenId" value="<%= request.getSession().getAttribute("screenId") %>">
                     <input type="hidden" name="voucherId" id="voucherId" value="">
-                    <input type="hidden" name="movieId" value="<%= request.getSession().getAttribute("movieId") %>">
-                    <button type="submit">Apply Voucher</button>
+                    <input type="hidden" name="movieId" value="<%= request.getSession().getAttribute("movieId") %>">                  
                 </form>
 
                 <p><strong>Discount Amount:</strong> $<span id="discountAmount">0.00</span></p>
@@ -203,8 +202,8 @@
         <script>
             function updateDiscountedPrice() {
                 var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
-                var discountAmount = parseFloat(document.getElementById('voucherCode').value);
-                var discountedPrice = totalPrice - discountAmount;
+                var discountPercentage = parseFloat(document.getElementById('voucherCode').value);
+                var discountedPrice = totalPrice - (totalPrice * discountPercentage / 100);
                 document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
             }
         </script>
@@ -212,14 +211,15 @@
             function applyVoucher(event) {
                 event.preventDefault();
 
-                // Get the original total price and the selected voucher discount amount
+                // Get the original total price and the selected voucher discount percentage
                 var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
-                var discountAmount = parseFloat(document.getElementById('voucherCode').value);
+                var discountPercentage = parseFloat(document.getElementById('voucherCode').value);
 
                 // Calculate the discounted price
-                var discountedPrice = totalPrice - discountAmount;
+                var discountedPrice = totalPrice - (totalPrice * discountPercentage / 100);
 
                 // Update the Discount Amount and Discounted Price fields
+                var discountAmount = totalPrice * discountPercentage / 100;
                 document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
                 document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
 
@@ -248,10 +248,11 @@
             function updateDiscountedPriceAndVoucherId() {
                 var totalPrice = parseFloat(document.getElementById('totalPrice').innerText);
                 var voucherSelect = document.getElementById('voucherCode');
-                var discountAmount = parseFloat(voucherSelect.value);
-                var discountedPrice = totalPrice - discountAmount;
+                var discountPercentage = parseFloat(voucherSelect.value);
+                var discountedPrice = totalPrice - (totalPrice * discountPercentage / 100);
 
                 // Update the discounted price and discount amount
+                var discountAmount = totalPrice * discountPercentage / 100;
                 document.getElementById('discountedPrice').innerText = discountedPrice.toFixed(2);
                 document.getElementById('discountAmount').innerText = discountAmount.toFixed(2);
 

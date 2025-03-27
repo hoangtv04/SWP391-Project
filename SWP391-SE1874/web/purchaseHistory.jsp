@@ -67,8 +67,10 @@
                                      "LEFT JOIN Voucher v ON b.VoucherID = v.VoucherID " +
                                      "LEFT JOIN Customer c ON b.CustomerID = c.CustomerID " +
                                      "LEFT JOIN Movie m ON sh.MovieID = m.MovieID " +
+                                     "WHERE b.CustomerID = ? " + // Thêm điều kiện lọc theo CustomerID
                                      "ORDER BY b.BookingID ASC";
                         PreparedStatement ps = conn.prepareStatement(sql);
+                        ps.setInt(1, customer.getCustomerID()); // Gán giá trị CustomerID từ session
                         ResultSet rs = ps.executeQuery();
 
                         bookings = new ArrayList<>();
