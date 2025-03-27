@@ -155,7 +155,7 @@ public class ConfirmBookingServlet extends HttpServlet {
                 booking.setShowtimeId(showtimeId);
                 booking.setSeatId(seatIds.get(0)); // Assuming only one seat is selected
                 booking.setScreenId(screenId);
-                booking.setVoucherId(1); // Use the retrieved voucherId
+                booking.setVoucherId(voucherId); // Use the retrieved voucherId
                 booking.setTotalPrice(totalPrice); // Use the retrieved totalPrice
                 booking.setMovieId(movieId);
                 booking.setCinemaId(cinemaId);
